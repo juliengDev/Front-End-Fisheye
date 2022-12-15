@@ -1,6 +1,3 @@
-// Fonction qui recupere le fichier JSON 
-// et le retourne sous la forme d'un tableau
-
 async function getPhotographers() {
 
     
@@ -15,17 +12,13 @@ async function getPhotographers() {
         let data = await requete.json();
         // console.log(data);
         const photographers = data.photographers;
+        
     
     
-    return {photographers: [...photographers]} // REST parameter
+    return {photographers: [...photographers]}
     }
-}   
+};   
 
-
-// Fonction qui selectionne la div class.photographer_section
-// Puis via une boucle :
-// - va stocker chaque objet associer a un photographe (1)
-// - va ajouter pour chacun de ces objets les elements choisies au DOM (2)
 
 async function displayData(photographers) {
     const photographersSection = document.querySelector(".photographer_section");

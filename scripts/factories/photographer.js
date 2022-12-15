@@ -1,7 +1,7 @@
 function photographerFactory(data) {
 
-    const { city,id, name, price, tagline, portrait } = data;
-    console.log(data)
+    const { city, id, name, price, tagline, portrait } = data;
+    // console.log(data)
     const picture = `assets/photographers/${portrait}`; 
           
     const url = new URL('http://127.0.0.1:5501/photographer.html');
@@ -51,11 +51,22 @@ function photographerFactory(data) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // La balise article est une zone focusable contentant le h2 et l'image
 // L'image est dans le le lien avec le text alternatif vide 
-
-
-
 
 // Cree l element du DOM (balise div ou autre) 
 // Exemple let div = document.createElement('div')
