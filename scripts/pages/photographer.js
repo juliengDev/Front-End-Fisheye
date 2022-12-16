@@ -1,4 +1,4 @@
-async function getPhotographers() {
+async function getPhotographer() {
 
     
     const url = '/data/photographers.json';
@@ -10,30 +10,14 @@ async function getPhotographers() {
         alert('Un probleme est survenu. Veuillez recharger la page ulterieurement')
     }else{
         let data = await requete.json();
-        // console.log(data)
+        console.log(data);
+        const photographers = data.photographers;
+        console.log(photographers)
         const medias = data.media;
+        console.log(medias)
         
     
     
-    return {medias: [...medias]}
+    return {photographers: [...photographers], medias: [...medias]}
     }
-};
-
-
-async function displayMedia(medias) {
-    const photographersHeader = document.querySelector(".photograph-header");
-    
-    medias.forEach((media) => {
-        const photographerMedia = mediaFactory(media);
-        const userCardDom = photographerMedia.getUserCardDom();
-        photographersHeader.appendChild(userCardDom);
-    })
-};
-
-async function init() {
-    // Récupère les datas des photographes
-    const { medias } = await getPhotographers();    
-    displayMedia(medias);
-};
-
-init();
+}; 

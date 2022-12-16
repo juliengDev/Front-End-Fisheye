@@ -12,10 +12,13 @@ async function getPhotographers() {
         let data = await requete.json();
         // console.log(data);
         const photographers = data.photographers;
+        // console.log(photographers)
+        const medias = data.media;
+        // console.log(medias)
         
     
     
-    return {photographers: [...photographers]}
+    return {photographers: [...photographers], medias: [...medias]}
     }
 };   
 
@@ -30,10 +33,14 @@ async function displayData(photographers) {
     });
 };
 
+
+
+
 async function init() {
     // Récupère les datas des photographes
-    const { photographers } = await getPhotographers();    
-    displayData(photographers);
+    const { photographers, medias  } = await getPhotographers();  
+    displayData(photographers);   
+    
 };
 
 init();

@@ -47,7 +47,7 @@ h1 {
     text-decoration: none;
 }
 
-.photographer_section article h2 {
+.photographer_section article .name {
     color: #D3573C;
     font-size: 36px;
     font-weight: 400;

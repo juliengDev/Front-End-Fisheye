@@ -5,9 +5,26 @@
 .photograph-header {
     background-color: #FAFAFA;
     height: 300px;
-    margin: 0 100px;
+    margin: 0 100px;    
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px green solid;
 }
 
+.photograph-header div {
+    border: 1px red solid;
+}
+.photograph-header button {
+    border: 1px red solid;
+}
+.photograph-header img {
+    border: 1px red solid;
+    object-fit: cover;
+    width: 100px;
+    height: 100px;
+
+}
 .contact_button {
     font-size: 20px;
     font-weight: bold;
