@@ -10,7 +10,6 @@ async function getPhotographers() {
         alert('Un probleme est survenu. Veuillez recharger la page ulterieurement')
     }else{
         let data = await requete.json();
-        // console.log(data);
         const photographers = data.photographers;
         // console.log(photographers)
         const medias = data.media;
@@ -38,7 +37,7 @@ async function displayData(photographers) {
 
 async function init() {
     // Récupère les datas des photographes
-    const { photographers, medias  } = await getPhotographers();  
+    const { photographers } = await getPhotographers();  
     displayData(photographers);   
     
 };
