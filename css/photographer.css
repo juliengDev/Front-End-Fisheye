@@ -1,28 +1,57 @@
+* {box-sizing: border-box;margin: 0;padding: 0;}
+body {font-size: 16px;font-family: "DM Sans", sans-serif;}
+a {text-decoration: none;  color: inherit}
+
+
 #contact_modal {
     display: none;
 }
 
-.photograph-header {
+.photograph-header .header{
+    
     background-color: #FAFAFA;
     height: 300px;
     margin: 0 100px;    
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border: 1px green solid;
+    
 }
 
-.photograph-header div {
-    border: 1px red solid;
+.photograph-header .profil {
+    
+    height : 200px;
 }
-.photograph-header button {
-    border: 1px red solid;
+.photograph-header .profil .name { 
+    
+    font-weight: 400;
+    font-size: 64px;
+    line-height: 83px;
+    color: #D3573C;
 }
+.photograph-header .profil .city {    
+    
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 31px;
+    color: #901C1C;
+}
+.photograph-header .profil .tagline {    
+    
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 23px;
+    color: #525252;
+    margin : 25px 0;
+
+}
+
 .photograph-header img {
-    border: 1px red solid;
     object-fit: cover;
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    transform: scale(1);
 
 }
 .contact_button {
@@ -36,6 +65,8 @@
     background-color: #901C1C;
     border-radius: 5px;
     cursor: pointer;
+    
+
 }
 
 .modal {
