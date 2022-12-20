@@ -12,7 +12,7 @@ async function getPhotographer(id) {
         let data = await requete.json();
         // console.log(data);
         const photographers = data.photographers;
-        console.log(photographers)
+        // console.log(photographers)
         const medias = data.media;
         // console.log(medias)     
 
@@ -37,26 +37,21 @@ async function getPhotographer(id) {
     }
 };
 
-async function displayData(photographer,medias) {
-    
+async function displayData(photographer,medias) {    
 
     const photographersSection = document.querySelector(".photograph-header");
     const photographerModel = photographerFactory(photographer,"photographer");
     const userCardDOM = photographerModel.getUserCardDOM();
-    photographersSection.appendChild(userCardDOM);
+    photographersSection.appendChild(userCardDOM);   
 
 
     const mediasSection = document.querySelector(".media");    
     medias.forEach((media) => {
-        const mediasModel = mediaFactory(media);
+        const mediasModel = mediaFactory(media,photographerModel.name);
         const userMediaDOM = mediasModel.getUserMediaDOM();
         mediasSection.appendChild(userMediaDOM); //2
-    });
-
-    
+    });    
 };
-
-
 
 
 async function init() {
@@ -64,8 +59,7 @@ async function init() {
     const url = new URL(document.location.href);
     const idPhotographer = url.searchParams.get('q');
     const {photographer, media} = await getPhotographer(idPhotographer);
-    displayData(photographer, media)
-   
+    displayData(photographer, media) 
     
 }
 

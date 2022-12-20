@@ -1,104 +1,31 @@
-function mediaFactory(data) {
+function mediaFactory(data,photographerName) {
 
-    const {date,id,image,likes,photographerId,price,title} = data;
-
-
+    const {date,id,image,likes,photographerId,price,title,video} = data;
+    const mediaDirectory = `assets/SamplePhotos/${photographerName}/`
     
-   
+    
+
     function getUserMediaDOM() {
         
-            //Cree les elements
-          const section = document.createElement( 'section' );
-          const divContainer = document.createElement( 'div' );
+      let element;
 
-          divContainer.textContent = "test";
 
-          section.appendChild(divContainer)
+      if(image != undefined) {
+        
+        element = document.createElement( 'img' );
+        element.setAttribute("src", `${mediaDirectory}${image}`)
 
-          return section
+      } else {
+        
+        element = document.createElement( 'video' );
+        element.setAttribute("src", `${mediaDirectory}${video}`)
+      }     
+          
+      return element;       
     }
 
-     
-
-    return{date,id,image,likes,photographerId,price,title, getUserMediaDOM }
+        
+    
+    return{id,date,image,likes,photographerId,price,title,video, getUserMediaDOM}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// class Photographer {
-//     constructor(data) {
-//         this.city = data.city;
-//         this.id = data.id;
-//         this.country = data.country;
-//         this.name = data.name;
-//         this.picture = data.picture;
-//         this.price = data.price;
-//         this.tagline = data.tagline;
-//         this.medias = new Array()
-//     }
-
-//     addMedia(media) {
-//         this.medias.push(media)
-//     }    
-// }
-
-// class Media {
-//     constructor(data){
-//         this.date = data.date;
-//         this.id = data.id;
-//         this.likes = data.likes;
-//         this.price =data.price;
-//         this.title = data.title;
-        
-//     }
-
-// }
-// class Picture extends Media {
-//     constructor(data){
-//         super(data)
-//         this.image = image;
-        
-//     }
-// }
-
-// class Video extends Media {
-//     constructor(data){
-//         super(data)
-//         this.video = video;
-        
-//     }
-// }
