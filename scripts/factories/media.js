@@ -12,13 +12,32 @@ function mediaFactory(data,photographerName) {
 
       if(image != undefined) {
         
-        element = document.createElement( 'img' );
-        element.setAttribute("src", `${mediaDirectory}${image}`)
+        // Declarer les elements du DOM
+        element = document.createElement( 'div' )
+        let imgModel = document.createElement( 'img' );
+        let legende = document.createElement( 'div' );
+
+        // Modifier les elements du DOM
+        imgModel.setAttribute("src", `${mediaDirectory}${image}`);
+        imgModel.className = "box";
+        legende.className = "legend"
+        legende.innerHTML = `
+        <p>${title}</p>
+        <div>${likes}</div>
+        <i class="fa-solid fa-heart"></i>        
+        `;
+
+        // Ajouter les elements au DOM
+        element.appendChild(imgModel);
+        element.appendChild(legende)
+
 
       } else {
         
-        element = document.createElement( 'video' );
+        let videoModel = document.createElement( 'video' );
         element.setAttribute("src", `${mediaDirectory}${video}`)
+        element.className = "box";
+
       }     
           
       return element;       

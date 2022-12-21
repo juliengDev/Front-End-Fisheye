@@ -1,15 +1,43 @@
+/**
+ * Plusieurs roles :
+ * 1 - Stocker un objet contenant les proprietes des photographes dans une variable data
+ * 2 - Recuperer la photo de profil du photographe dans les assets
+ * 3 - Ajouter l'id du photographe dans l'url de la page photographer pour assurer la redirection du profil
+ * 4 - Retourner la balise article a la condition d'etre sur la page d'acceuil
+ * 5 - Retourner la balise div a la condition d'etre sur la page photographe
+ *  
+ * @param {*} data - Contient les donnees du photographe
+ * @param {*} page - Contient la string "index" ou "photographer"
+ * 
+ * @return { Object } data
+ * @return { <String> } data.name
+ * @return { <Number> } data.id
+ * @return { <String> } data.city
+ * @return { <String> } data.country
+ * @return { <String> } data.tagline
+ * @return { <Number> } data.price
+ * @return { <String> } data.portrait
+ * @return { Function } getUserCardDOM
+ */
+
+
 function photographerFactory(data,page) {
    
     const { city,country, id, name, price, tagline, portrait } = data;
-    console.log(data)
+    // console.log(data)
     const picture = `assets/photographers/${portrait}`; 
     
     const url = new URL('http://127.0.0.1:5501/photographer.html');
     url.searchParams.set('q', data.id);
-    const href = url.href;
+    const href = url.href; // contient l'url complete avec l'id photographer
         
     
     if(page == "index") {   
+
+        /**
+         * Retourne une balise article contenant les elements HTML a afficher sur la page accueil
+         * @return { article }
+         */
 
         function getUserCardDOM() {
             
@@ -45,10 +73,16 @@ function photographerFactory(data,page) {
             article.appendChild(taglineElement);
             article.appendChild(priceElement);
             
-            return article; 
+            return article
+             
 
         }
-    } else if(page == 'photographer') {
+    } else if(page == "photographer") {
+
+         /**
+         * Retourne une balise div contenant les elements HTML a afficher sur la page photographe
+         * @return { headerPhotographer }
+         */
 
         function getUserCardDOM() {
             
@@ -74,10 +108,6 @@ function photographerFactory(data,page) {
             img.className = "img";
             img.setAttribute("src", picture);
 
-
-
-
-
             headerPhotographer.appendChild(profil);
             headerPhotographer.appendChild(contact);
             headerPhotographer.appendChild(img);
@@ -86,13 +116,8 @@ function photographerFactory(data,page) {
         }
     }   
     
-    return { city,country,id, name, picture, price, tagline, getUserCardDOM} // Ne comprends pas la syntaxe : utilisation des {} ?
+    return { city,country,id, name, picture, price, tagline, getUserCardDOM } // Ne comprends pas la syntaxe : utilisation des {} ?
 }
-
-
-
-
-
 
 
 

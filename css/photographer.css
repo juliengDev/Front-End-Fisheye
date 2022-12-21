@@ -122,3 +122,16 @@ form input {
     border: none;
     border-radius: 5px;
 }
+.media {
+    margin : 100px 100px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 95px;
+}
+
+section .box {
+
+    height: 300px;
+    width: 350px;
+    object-fit: cover;
+}
