@@ -1,6 +1,12 @@
-* {box-sizing: border-box;margin: 0;padding: 0;}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
 body {font-size: 16px;font-family: "DM Sans", sans-serif;}
-a {text-decoration: none;  color: inherit}
+a {color: inherit}
 
 
 #contact_modal {
@@ -123,7 +129,7 @@ form input {
     border-radius: 5px;
 }
 .media {
-    margin : 100px 100px;
+    margin : 30px 100px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 95px;
@@ -134,4 +140,78 @@ section .box {
     height: 300px;
     width: 350px;
     object-fit: cover;
+}
+
+/* ==================== Bouton de tri  ==================== */
+
+.media-dropdown{
+    
+    margin: 30px 100px 100px;   
+}
+.media-dropdown .sort-media {
+    display: flex;
+    align-items: center;
+}
+.media-dropdown p {
+    font-weight: 700;
+    font-size: 18px;
+}
+.media-dropdown button {    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:  20px;
+    position: relative;
+    font-size: 18px;
+    font-weight: 700;
+    color: white;    
+    width: 150px;
+    height: 60px;
+    border: none;
+    background-color: #901C1C;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.header-media-dropdown > div {
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+}
+
+.header-media-dropdown  .dropdown {
+    
+    position: absolute;       
+    background-color: #901C1C;
+    height: 150px;
+    top: 5px;
+    border-radius: 5px;      
+}
+  .dropdown ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100%;
+    align-items:flex-start;
+    padding-left: 12px;
+}
+.dropdown ul .line {
+    height: 1px;
+    width: 130px;
+    background-color: #fff;
+    
+   
+}   
+
+
+
+.header-media-dropdown .chevron-up {
+    
+    position:absolute;
+    right:15px;
+}
+
+.header-media-dropdown .chevron-down {
+    
+    position:absolute;
+    right:15px;
 }

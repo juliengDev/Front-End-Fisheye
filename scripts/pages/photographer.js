@@ -33,24 +33,38 @@ async function getPhotographer(id) {
             }
         })
 
-        return {photographer: user, media : userMedia}
+        return {
+            photographer: user,
+            media : userMedia
+        }
     }
 };
 
 async function displayData(photographer,medias) {    
 
+    // Partie Header
     const photographersSection = document.querySelector(".photograph-header");
     const photographerModel = photographerFactory(photographer,"photographer");
+    // console.log(photographerModel)
     const userCardDOM = photographerModel.getUserCardDOM();
-    photographersSection.appendChild(userCardDOM);   
+    // console.log(userCardDOM)
+    photographersSection.appendChild(userCardDOM);
+    
 
+    // Partie Tri
+    const mediaDropdown = document.querySelector(".media-dropdown");
+    const userDropdown = photographerModel.getDropdown()
+    mediaDropdown.appendChild(userDropdown);
 
+    // Partie Medias 
     const mediasSection = document.querySelector(".media");    
     medias.forEach((media) => {
-        const mediasModel = mediaFactory(media,photographerModel.name);
+        const mediasModel = mediaFactory(media,photographerModel.name)        
         const userMediaDOM = mediasModel.getUserMediaDOM();
         mediasSection.appendChild(userMediaDOM); //2
-    });    
+    });
+    
+    
 };
 
 
@@ -64,3 +78,8 @@ async function init() {
 }
 
 init();
+
+
+
+
+

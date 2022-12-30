@@ -29,14 +29,30 @@ function mediaFactory(data,photographerName) {
 
         // Ajouter les elements au DOM
         element.appendChild(imgModel);
-        element.appendChild(legende)
+        element.appendChild(legende);
 
 
       } else {
         
+        // Declarer les elements du DOM
+        element = document.createElement( 'div' );
         let videoModel = document.createElement( 'video' );
-        element.setAttribute("src", `${mediaDirectory}${video}`)
-        element.className = "box";
+        let legende = document.createElement( 'div' );
+
+        // Modifier les elements du DOM
+        videoModel.setAttribute("src", `${mediaDirectory}${video}`)
+        videoModel.className = "box";
+        legende.className = "legend"
+        legende.innerHTML = `
+        <p>${title}</p>
+        <div>${likes}</div>
+        <i class="fa-solid fa-heart"></i>        
+        `;
+
+        // Ajouter les elements au DOM
+        element.appendChild(videoModel);
+        element.appendChild(legende);
+
 
       }     
           

@@ -39,7 +39,10 @@ async function getPhotographers() {
         
     
     
-    return {photographers: [...photographers], medias: [...medias]}
+    return {
+        photographers: [...photographers],
+        medias: [...medias]
+        }
     }
 };   
  
