@@ -24,13 +24,14 @@
 function photographerFactory(data,page) {
    
     const { city,country, id, name, price, tagline, portrait } = data;
-    // console.log(data)
+    // console.log(data.id)
     const picture = `assets/photographers/${portrait}`; 
     
     const url = new URL('http://127.0.0.1:5501/photographer.html');
     url.searchParams.set('q', data.id);
     const href = url.href; // contient l'url complete avec l'id photographer
-        
+    
+    
     
     if(page == "index") {   
 
@@ -104,7 +105,7 @@ function photographerFactory(data,page) {
             
             `;
 
-            contact.innerHTML = `<button class="contact_button" onclick="displayModal()">Contactez-moi</button>`;
+            contact.innerHTML = `<button class="contact_button">Contactez-moi</button>`;
             img.className = "img";
             img.setAttribute("src", picture);
 
@@ -113,10 +114,55 @@ function photographerFactory(data,page) {
             headerPhotographer.appendChild(img);
 
             return headerPhotographer
-        }
-
+        }       
+        function displayModal() {   
+            
+            const contactButton = document.querySelector('.contact_button');
+            let contactModal = document.getElementById('contact_modal');            
+            const modal = document.querySelector('.modal');
+        
+            contactModal.style.display="block";
+            modal.innerHTML=`
+                <header>
+                    <h2>Contactez-moi</h2>                    
+                    <img src="assets/icons/close.svg" />
+                </header>
+                <p class="name">${name}</p>
+                <form>
+                    <div>
+                        <label>Prénom</label>
+                        <input/>
+                    </div>
+                    <div>
+                        <label>Nom</label>
+                        <input/>
+                    </div>
+                    <div>
+                        <label>Email</label>
+                        <input/>
+                    </div>
+                    <div>
+                        <label>Votre message</label>
+                        <input/>
+                    </div>
+                    <button class="contact_button">Envoyer</button>
+                </form>
+            `;
+            contactButton.addEventListener('click', displayModal);       
+        
+        }        
+        
+        function closeModal() {        
+            
+            let contactModal = document.getElementById('contact_modal');
+            const closeButtonModal = document.querySelector('.modal header img');  
+                  
+            contactModal.style.display="none";            
+            
+            closeButtonModal.addEventListener('click', closeModal);
         
         
+        }            
         
         function getDropdown() {
             
@@ -142,11 +188,11 @@ function photographerFactory(data,page) {
             mediaMenu.className = 'dropdown';
             mediaMenu.style.display= 'none';
             mediaNav.innerHTML = `
-            <li>Popularité</li>
+            <li class="popularity">Popularité</li>
             <span class="line"></span>
-            <li>Date</li>
+            <li class="date">Date</li>
             <span class="line"></span>
-            <li>Titre</li>
+            <li class="title">Titre</li>
             `;
 
             
@@ -177,9 +223,7 @@ function photographerFactory(data,page) {
                     dropdownMediaMenu.style.display='block';
                     dropdownMediaMenu.setAttribute('aria-expanded', 'true');
                     
-                    // buttonSort.style.height='150px';
-                    // buttonSort.style.top ='50px'
-                    // mediaMenu.style.bottom='80px'
+                    
 
                 } else {        
 
@@ -220,11 +264,17 @@ function photographerFactory(data,page) {
             })
             
             return sortMedia
-        }
+        }   
+
+       
     }   
+
     
-    return { city,country,id, name, picture, price, tagline, getUserCardDOM, getDropdown } // Ne comprends pas la syntaxe : utilisation des {} ?
+    return { city,country,id, name, picture, price, tagline,
+             getUserCardDOM, getDropdown,displayModal,closeModal} 
 }
+
+
 
 
 

@@ -80,8 +80,7 @@ a {color: inherit}
     background-color: #DB8876;
     width: 50%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: column;    
     justify-content: space-between;
     padding: 35px;
     margin: auto;
@@ -140,6 +139,14 @@ section .box {
     height: 300px;
     width: 350px;
     object-fit: cover;
+}
+
+/* ==================== Modal ==================== */
+
+.modal .name {
+    font-size: 64px;
+    
+    
 }
 
 /* ==================== Bouton de tri  ==================== */
