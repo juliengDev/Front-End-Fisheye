@@ -115,55 +115,7 @@ function photographerFactory(data,page) {
 
             return headerPhotographer
         }       
-        function displayModal() {   
-            
-            const contactButton = document.querySelector('.contact_button');
-            let contactModal = document.getElementById('contact_modal');            
-            const modal = document.querySelector('.modal');
-        
-            contactModal.style.display="block";
-            modal.innerHTML=`
-                <header>
-                    <h2>Contactez-moi</h2>                    
-                    <img src="assets/icons/close.svg" />
-                </header>
-                <p class="name">${name}</p>
-                <form>
-                    <div>
-                        <label>Prénom</label>
-                        <input/>
-                    </div>
-                    <div>
-                        <label>Nom</label>
-                        <input/>
-                    </div>
-                    <div>
-                        <label>Email</label>
-                        <input/>
-                    </div>
-                    <div>
-                        <label>Votre message</label>
-                        <input/>
-                    </div>
-                    <button class="contact_button">Envoyer</button>
-                </form>
-            `;
-            contactButton.addEventListener('click', displayModal);       
-        
-        }        
-        
-        function closeModal() {        
-            
-            let contactModal = document.getElementById('contact_modal');
-            const closeButtonModal = document.querySelector('.modal header img');  
-                  
-            contactModal.style.display="none";            
-            
-            closeButtonModal.addEventListener('click', closeModal);
-        
-        
-        }            
-        
+
         function getDropdown() {
             
             let sortMedia = document.createElement('div');
@@ -269,9 +221,9 @@ function photographerFactory(data,page) {
        
     }   
 
-    
+       
     return { city,country,id, name, picture, price, tagline,
-             getUserCardDOM, getDropdown,displayModal,closeModal} 
+             getUserCardDOM, getDropdown} 
 }
 
 
