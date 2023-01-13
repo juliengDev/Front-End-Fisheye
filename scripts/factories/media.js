@@ -2,9 +2,11 @@ function mediaFactory(data,photographerName) {
 
     const {date,id,image,likes,photographerId,price,title,video} = data;
     const mediaDirectory = `assets/SamplePhotos/${photographerName}/`
+    console.log(data)
     
-    
+  
 
+   
     function getUserMediaDOM() {
         
       let element;
@@ -15,10 +17,8 @@ function mediaFactory(data,photographerName) {
         // Declarer les elements du DOM
         element = document.createElement( 'div' )
         element.className= "img";
-        element.addEventListener('click', function(){     
-          let lightbox = document.getElementById('lightbox');
-          console.log(lightbox)
-        })
+        element.addEventListener('click', lightbox)
+        
 
         let imgModel = document.createElement( 'img' );
         let legende = document.createElement( 'div' );
@@ -43,10 +43,7 @@ function mediaFactory(data,photographerName) {
         
         // Declarer les elements du DOM
         element = document.createElement( 'div' );
-        element.addEventListener('click', function(){     
-          let lightbox = document.getElementById('lightbox');
-          console.log(lightbox)
-        })
+        element.addEventListener('click', lightbox)
 
         let videoModel = document.createElement( 'video' );
         let legende = document.createElement( 'div' );
@@ -74,6 +71,6 @@ function mediaFactory(data,photographerName) {
 
         
     
-    return{id,date,image,likes,photographerId,price,title,video, getUserMediaDOM}
+    return{id,date,image,likes,photographerId,price,title,video,mediaDirectory, getUserMediaDOM}
 }
 

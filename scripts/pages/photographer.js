@@ -248,16 +248,21 @@ async function displayData(photographer,medias) {
      
 
     // Partie Medias 
+    let mediaModels = [];
+    
     const mediasSection = document.querySelector(".media");    
     mediaPopularity.forEach((media) => {
         const mediasModel = mediaFactory(media,photographerModel.name);        
         const userMediaDOM = mediasModel.getUserMediaDOM();
-        mediasSection.appendChild(userMediaDOM); //2
+        mediasSection.appendChild(userMediaDOM);
+        mediaModels.push(mediasModel) //2
     });
-    
+
+    createLightbox(mediaModels);
     const selectFilter = document.getElementById('media-filter');
     selectFilter.addEventListener('change', mediaFilter);
    
+    
 };
 
 async function mediaFilter() {
@@ -287,19 +292,61 @@ async function mediaFilter() {
 
 };
 
+ function createLightbox(medias){
+    let lightbox = document.getElementById('lightbox');
+        
+        lightbox.style.display="block";
 
+        let containerImg = document.getElementById('img-container');
+        let containerVideo = document.getElementById('video-container');
+        let containerMedia = document.getElementById('media-container');       
+        let leftArrow = document.getElementById('l');
+        let rightArrow = document.getElementById('r');
+        containerImg.className='img-container';
+        containerVideo.className='video-container';
+                
+        
 
-// async function displayLightbox(img,name) {
+            medias.forEach((media)=> {
+                
+                if(media.image != undefined) { 
+
+                let element = document.createElement('div');
+                let img = document.createElement('img');
+                let titre = document.createElement('p');
+                
+                img.setAttribute('src', media.mediaDirectory + media.image);
+                element.className="img";
+                titre.textContent= media.title;
+                titre.className="picture-name";
     
-//     const imagePhotographers = document.querySelectorAll(".media .img")
-//     imagePhotographers.forEach((imagePhotographer) => {
-//         imagePhotographer.addEventListener('click', function(){     
-//             let lightbox = document.getElementById('lightbox');
-//             console.log(lightbox)
-//         })
-//     })   
+                containerImg.appendChild(element);
+                element.appendChild(img);
+                element.appendChild(titre);
 
-// }
+                } else {
+                    let element = document.createElement('div');
+                    let video = document.createElement('video');
+                    let titre = document.createElement('p');
+                    element.className="video";
+                    video.setAttribute('src', media.mediaDirectory + media.video);
+                    video.setAttribute('height', '900px')
+                    titre.textContent= media.title;
+                    titre.className="picture-name";
+        
+                    containerVideo.appendChild(element);
+                    element.appendChild(video);
+                    element.appendChild(titre);
+
+
+                }
+                
+            }) 
+    
+        
+  }
+
+
 
 async function init() {
     
@@ -307,7 +354,7 @@ async function init() {
     const idPhotographer = url.searchParams.get('q');
     const {photographer, media} = await getPhotographer(idPhotographer);
     displayData(photographer, media);
-    // displayLightbox();
+    
     
 };
 
