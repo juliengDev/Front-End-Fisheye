@@ -42,10 +42,8 @@ async function getPhotographer(id) {
 
 function createContactForm(name){
 
-    let contactButton = document.querySelector('.contact_button');
-    let contactModal = document.getElementById('contact_modal');            
     let modal = document.querySelector('.modal');
-    
+    let contactButton = document.querySelector('.contact_button');
     
     modal.innerHTML=`
     <header>
@@ -53,29 +51,61 @@ function createContactForm(name){
         <img id="idCloseContact" src="assets/icons/close.svg" />
     </header>
     <p class="name">${name}</p>
-    <form>
+    <form
+    id="reserve"
+    name="reserve"
+    action="index.html"
+    method="get"
+    onsubmit="validate()">
         <div>
-            <label>Prénom</label>
-            <input/>
+            <label for="first">Prénom</label>
+            <input
+            class="text-control"
+            type="text"
+            id="first"
+            name="first"
+            maxlength="60"
+            />
         </div>
         <div>
-            <label>Nom</label>
-            <input/>
+            <label for="last">Nom</label>
+            <input
+            class="text-control"
+            type="text"
+            id="last"
+            name="last"
+            maxlength="60"
+            />
         </div>
         <div>
-            <label>Email</label>
-            <input/>
+            <label for="email">Email</label>
+            <input
+            class="text-control"
+            type="email"
+            id="email"
+            name="email" 
+            />
         </div>
         <div>
-            <label>Votre message</label>
-            <input/>
+            <label for"message">Votre message</label>
+            <textarea 
+            name="message" 
+            id="message" 
+            class="text-control" 
+            cols="30" rows="10"
+            wrap="hard"
+            spellcheck="false"></textarea>
+            
         </div>
-        <button class="contact_button">Envoyer</button>
+        <button class="send_button" type="submit">Envoyer</button>
     </form>
 `;
+   
+    let sendButton = document.querySelector('.send_button')
     let closeContactModal = document.getElementById('idCloseContact');
     contactButton.addEventListener('click', toggleContactForm);
     closeContactModal.addEventListener('click',toggleContactForm);
+    // sendButton.addEventListener('click',validate)
 };
 
 function toggleContactForm() {
@@ -86,6 +116,73 @@ function toggleContactForm() {
     } else {
         contactModal.style.display = "block";
     }
+};
+
+// Message d'erreur personnalise avec l'input concerne et un message a afficher.
+function errorMessage(element, message) {
+
+    const newP = document.createElement("p");
+  
+    newP.classList.add("error");
+    newP.textContent = message;
+    newP.style.color = '#fff';
+    newP.style.fontSize='1.5em'  
+  
+    // Injecte l'élément <p> précédemment créé à l'élément qui doit afficher l'erreur.
+    element.parentNode.insertBefore(newP, element);
+  
+};
+
+// Vérifie si le formulaire est valide à la soumission du formulaire.
+function validate(event) {
+
+    console.log('test')
+    const firstName = document.getElementById("first");
+    const lastName = document.getElementById("last");
+    const email = document.getElementById("email");
+   
+
+    
+    const name_regex = /^[A-zÀ-ú]+$/;    
+    const mail_regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    
+    const errors = document.querySelectorAll(".error");
+  
+    errors.forEach(function(value) {
+      value.remove();
+    });
+  
+    
+    if (!name_regex.test(firstName.value)) {
+        errorMessage(firstName, "Veuillez saisir un prenom valide");
+        return false;
+    
+    } else if (firstName.value.length < 2) {
+        errorMessage(firstName, "Ce champ doit contenir au minimum 2 caractères !");
+        return false;
+    }
+
+    if (!name_regex.test(lastName.value)) {
+        errorMessage(lastName, "Veuillez saisir un nom valide");
+        return false;
+    } else if (lastName.value.length < 2) {
+        errorMessage(lastName, "Ce champ doit contenir au minimum 2 caractères !");
+        return false;
+    }
+   
+    if (!mail_regex.test(email.value)) {
+  
+      errorMessage(email, "Ce champ doit contenir une adresse email valide !");
+      return false;
+    } 
+  
+  
+    
+
+    
+    //* Si tout est OK */
+     
+     event.preventDefault();
 };
 
 
@@ -112,10 +209,7 @@ async function displayData(photographer,medias) {
     // Modal Contactez-moi
     createContactForm(photographerModel.name)
 
-    // Partie Tri
-    const mediaDropdown = document.querySelector(".media-dropdown");
-    const userDropdown = photographerModel.getDropdown();
-    mediaDropdown.appendChild(userDropdown);
+   
 
     //Creation des listes de medias triees
 
@@ -193,14 +287,31 @@ async function mediaFilter() {
 
 };
 
-async function init() {
 
+
+// async function displayLightbox(img,name) {
+    
+//     const imagePhotographers = document.querySelectorAll(".media .img")
+//     imagePhotographers.forEach((imagePhotographer) => {
+//         imagePhotographer.addEventListener('click', function(){     
+//             let lightbox = document.getElementById('lightbox');
+//             console.log(lightbox)
+//         })
+//     })   
+
+// }
+
+async function init() {
+    
     const url = new URL(document.location.href);
     const idPhotographer = url.searchParams.get('q');
     const {photographer, media} = await getPhotographer(idPhotographer);
-    displayData(photographer, media); 
+    displayData(photographer, media);
+    // displayLightbox();
     
 };
+
+
 
 
 init();

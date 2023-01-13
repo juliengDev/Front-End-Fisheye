@@ -14,13 +14,20 @@ function mediaFactory(data,photographerName) {
         
         // Declarer les elements du DOM
         element = document.createElement( 'div' )
+        element.className= "img";
+        element.addEventListener('click', function(){     
+          let lightbox = document.getElementById('lightbox');
+          console.log(lightbox)
+        })
+
         let imgModel = document.createElement( 'img' );
         let legende = document.createElement( 'div' );
 
         // Modifier les elements du DOM
         imgModel.setAttribute("src", `${mediaDirectory}${image}`);
         imgModel.className = "box";
-        legende.className = "legend"
+        imgModel.style.cursor="pointer";
+        legende.className = "legend";
         legende.innerHTML = `
         <p>${title}</p>
         <div>${likes}</div>
@@ -36,12 +43,18 @@ function mediaFactory(data,photographerName) {
         
         // Declarer les elements du DOM
         element = document.createElement( 'div' );
+        element.addEventListener('click', function(){     
+          let lightbox = document.getElementById('lightbox');
+          console.log(lightbox)
+        })
+
         let videoModel = document.createElement( 'video' );
         let legende = document.createElement( 'div' );
 
         // Modifier les elements du DOM
         videoModel.setAttribute("src", `${mediaDirectory}${video}`)
         videoModel.className = "box";
+        videoModel.style.cursor="pointer"
         legende.className = "legend"
         legende.innerHTML = `
         <p>${title}</p>
