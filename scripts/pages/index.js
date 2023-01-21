@@ -33,9 +33,9 @@ async function getPhotographers() {
     }else{
         let data = await requete.json();
         const photographers = data.photographers;
-        // console.log(photographers)
+        
         const medias = data.media;
-        // console.log(medias)
+        
         
     
     

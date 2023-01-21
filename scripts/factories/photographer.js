@@ -24,7 +24,7 @@
 function photographerFactory(data,page) {
    
     const { city,country, id, name, price, tagline, portrait } = data;
-    // console.log(data.id)
+    
     const picture = `assets/photographers/${portrait}`; 
     
     const url = new URL('http://127.0.0.1:5501/photographer.html');

@@ -2,7 +2,7 @@ function mediaFactory(data,photographerName) {
 
     const {date,id,image,likes,photographerId,price,title,video} = data;
     const mediaDirectory = `assets/SamplePhotos/${photographerName}/`
-    console.log(data)
+   
     
   
 
@@ -43,6 +43,7 @@ function mediaFactory(data,photographerName) {
         
         // Declarer les elements du DOM
         element = document.createElement( 'div' );
+        element.className= "video";
         element.addEventListener('click', lightbox)
 
         let videoModel = document.createElement( 'video' );
