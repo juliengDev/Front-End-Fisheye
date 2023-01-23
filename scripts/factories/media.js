@@ -1,16 +1,14 @@
-function mediaFactory(data,photographerName) {
+function mediaFactory(data,photographerName,page,cost) {
 
     let {date,id,image,likes,photographerId,price,title,video} = data;
+    
     const mediaDirectory = `assets/SamplePhotos/${photographerName}/`
    
-    
-  
-
+     
    
     function getUserMediaDOM() {
         
-      let element;
-      
+      let element;      
 
       if(image != undefined) {
         
@@ -38,7 +36,10 @@ function mediaFactory(data,photographerName) {
         nbLikes.textContent=`${likes}`;
         heart.className="heart fa-solid fa-heart";
 
-        heart.addEventListener('click', function(){          
+        heart.addEventListener('click', function(){
+          let total = document.getElementsByClassName('number')[0];
+          console.log('test')
+          total.textContent = parseInt(total.textContent)+1           
           likes+=1;
           nbLikes.textContent=`${likes}`;          
           })
@@ -77,7 +78,10 @@ function mediaFactory(data,photographerName) {
         nbLikes.textContent=`${likes}`;
         heart.className="heart fa-solid fa-heart";
 
-        heart.addEventListener('click', function(){          
+        heart.addEventListener('click', function(){ 
+          let total = document.getElementsByClassName('number')[0];
+          console.log('test')
+          total.textContent = parseInt(total.textContent)+1         
           likes+=1;
           nbLikes.textContent=`${likes}`;          
           })
@@ -95,8 +99,49 @@ function mediaFactory(data,photographerName) {
       return element;       
     }
 
+    function getCounterCardDOM(total) {
+
+    let element;
+
+    if(page == "photographer") {
+      
+      element = document.createElement('div');
+      const totalLikes = document.createElement('div');
+      const number = document.createElement('p');
+      const heart = document.createElement('i');
+      const pricePhotographer = document.createElement('p');
+
+      const totalLike = document.getElementsByClassName('number');
+      const IndividualLikes = document.getElementsByClassName('likes');
+      
+
+
+      element.className="container-counter";
+      totalLikes.className="total_likes";
+      number.className="number";
+      number.textContent= total;
+      heart.className="fa-solid fa-heart";
+      pricePhotographer.className="price";
+      pricePhotographer.textContent=`${cost}€/jour`;
+     
+      
+
+      element.appendChild(totalLikes);
+      totalLikes.appendChild(number);
+      totalLikes.appendChild(heart);
+      element.appendChild(pricePhotographer);
+
+      
+      
+      
+      return element;
+    }
+   }
+
         
     
-    return {id,date,image,likes,photographerId,price,title,video,mediaDirectory, getUserMediaDOM}
+    return {
+      id,date,image,likes,photographerId,price,title,video,mediaDirectory,
+      getUserMediaDOM,getCounterCardDOM}
 }
 

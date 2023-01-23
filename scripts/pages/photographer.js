@@ -6,6 +6,7 @@ let mediaPopularity =[];
 let mediaDate =[];
 let mediaTitle =[];
 let photographerModel;
+let mediasModel;
 
 
 //Recuperation des donnees
@@ -54,7 +55,7 @@ async function getPhotographer(id) {
 // ------------------------------------------ Formulaire ------------------------------------------
 
 // Formulaire de contact de la page photographe
-function createContactForm(name){
+function createContactForm(name) {
 
     let modal = document.querySelector('.modal');
     let contactButton = document.querySelector('.contact_button');
@@ -200,22 +201,24 @@ function validate(event) {
      event.preventDefault();
 };
 
-
-
 async function displayData(photographer,medias) {    
 
     // Partie Header
     const photographersSection = document.querySelector(".photograph-header");
-    photographerModel = photographerFactory(photographer,"photographer");
-    
-    const userCardDOM = photographerModel.getUserCardDOM();
-   
+    photographerModel = photographerFactory(photographer,"photographer");    
+    const userCardDOM = photographerModel.getUserCardDOM();   
     photographersSection.appendChild(userCardDOM);   
+    // console.log(photographerModel)
 
     // Modal Contactez-moi
     createContactForm(photographerModel.name)
 
+    // Partie Compteur
+    const counterSection = document.querySelector(".container-counter");
+    mediasModel = mediaFactory(medias,photographerModel.name,"photographer",photographerModel.price);
    
+    // console.log(mediasModel)   
+    
 
     //Creation des listes de medias triees
 
@@ -253,17 +256,22 @@ async function displayData(photographer,medias) {
     })];
      
 
-    // Partie Medias 
-    let mediaModels = [];
-    
-    
+    // ------------------------------------------ Medias ------------------------------------------
+    let mediaModels = [];    
+    let sum = 0;
+
     const mediasSection = document.querySelector(".media");    
     mediaPopularity.forEach((media) => {
-        const mediasModel = mediaFactory(media,photographerModel.name);               
+        const mediasModel = mediaFactory(media,photographerModel.name);                     
         const userMediaDOM = mediasModel.getUserMediaDOM();
         mediasSection.appendChild(userMediaDOM);
-        mediaModels.push(mediasModel) //2
+        mediaModels.push(mediasModel);
+        sum+= media.likes
+        
     });
+    
+    const userCounterDOM = mediasModel.getCounterCardDOM(sum);
+    counterSection.appendChild(userCounterDOM)
    
     createLightbox(mediaModels);
 
@@ -271,17 +279,15 @@ async function displayData(photographer,medias) {
     let mediaVideo = document.getElementsByClassName('box-video');
     
     for (element of mediaImg) {
-        
-        element.addEventListener('click', toggleLightbox)
+        element.addEventListener('click', toggleLightbox);
     }
     for (element of mediaVideo){
-        element.addEventListener('click', toggleLightbox)
+        element.addEventListener('click', toggleLightbox);
     }
     
-    // Trie des medias
+    // Tri des medias
     const selectFilter = document.getElementById('media-filter');
     selectFilter.addEventListener('change', mediaFilter);
-
 };
 
 async function mediaFilter() {
@@ -310,7 +316,7 @@ async function mediaFilter() {
 
 };
 
-async function createLightbox(medias){
+async function createLightbox(medias) {
     let lightbox = document.getElementById('lightbox');
     lightbox.innerHTML=`
     <div class="lightbox-container">
@@ -419,7 +425,7 @@ async function createLightbox(medias){
 
 }
 
-async function toggleLightbox(){
+async function toggleLightbox() {
     
     let lightbox = document.getElementById('lightbox');   
     
@@ -430,18 +436,14 @@ async function toggleLightbox(){
     }
 }
 
-async function totalCounter(likes){
-     console.log(likes)
-     console.log('test')
-}
-
 async function init() {
     
     const url = new URL(document.location.href);
     const idPhotographer = url.searchParams.get('q');
     const {photographer, media} = await getPhotographer(idPhotographer);
     displayData(photographer, media);
-    
+    // console.log(photographer);
+    // console.log(media);
     
 };
 

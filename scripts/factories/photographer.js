@@ -23,7 +23,7 @@
 
 function photographerFactory(data,page) {
    
-    const { city,country, id, name, price, tagline, portrait } = data;
+    const { city,country, id, name, price, tagline, portrait,likes } = data;
     
     const picture = `assets/photographers/${portrait}`; 
     
@@ -92,7 +92,7 @@ function photographerFactory(data,page) {
             const profil = document.createElement( 'div' );
             const contact = document.createElement( 'div' )
             const img = document.createElement( 'img' )
-
+            
             
             headerPhotographer.className = "header";            
             profil.className = "profil";
@@ -116,13 +116,11 @@ function photographerFactory(data,page) {
             return headerPhotographer
         }       
 
-         
-
        
     }   
 
        
-    return { city,country,id, name, picture, price, tagline,
+    return { city,country,id, name, picture, price, tagline,likes,
              getUserCardDOM} 
 }
 

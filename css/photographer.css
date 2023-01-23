@@ -339,11 +339,12 @@ margin: 0 150px;
     position:absolute;
     top: 4px;
     right: 0px;
+    cursor: pointer;
 }
 
 /* Compteur */
 
-#counter {
+.container-counter {
     position: fixed;
     bottom: 0;
     right: 0;
