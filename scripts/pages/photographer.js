@@ -1,3 +1,14 @@
+// Variables de portees global utilisees pour la fonction displayData et mediaFilter
+// Declarer au chargement de la page via displayData 
+// Re utiliser lors de l'utilisation du filtre des medias via mediaFilter
+
+let mediaPopularity =[];
+let mediaDate =[];
+let mediaTitle =[];
+let photographerModel;
+
+
+//Recuperation des donnees
 async function getPhotographer(id) {
 
     
@@ -40,6 +51,9 @@ async function getPhotographer(id) {
     }
 };
 
+// ------------------------------------------ Formulaire ------------------------------------------
+
+// Formulaire de contact de la page photographe
 function createContactForm(name){
 
     let modal = document.querySelector('.modal');
@@ -108,6 +122,7 @@ function createContactForm(name){
     // sendButton.addEventListener('click',validate)
 };
 
+// Gere l'affichage de la modal de contact
 function toggleContactForm() {
     let contactModal = document.getElementById('contact_modal');    
 
@@ -186,15 +201,6 @@ function validate(event) {
 };
 
 
-// Variables de portees global utilisees pour la fonction displayData et mediaFilter
-// Declarer au chargement de la page via displayData 
-// Re utiliser lors de l'utilisation du filtre des medias via mediaFilter
-
-let mediaPopularity =[];
-let mediaDate =[];
-let mediaTitle =[];
-let photographerModel;
-
 
 async function displayData(photographer,medias) {    
 
@@ -250,6 +256,7 @@ async function displayData(photographer,medias) {
     // Partie Medias 
     let mediaModels = [];
     
+    
     const mediasSection = document.querySelector(".media");    
     mediaPopularity.forEach((media) => {
         const mediasModel = mediaFactory(media,photographerModel.name);               
@@ -260,13 +267,10 @@ async function displayData(photographer,medias) {
    
     createLightbox(mediaModels);
 
-    let mediaImg = document.getElementsByClassName('img');
-    let mediaVideo = document.getElementsByClassName('video');
+    let mediaImg = document.getElementsByClassName('box-img');
+    let mediaVideo = document.getElementsByClassName('box-video');
     
-    
-    
-
-    for ( element of mediaImg) {
+    for (element of mediaImg) {
         
         element.addEventListener('click', toggleLightbox)
     }
@@ -306,18 +310,6 @@ async function mediaFilter() {
 
 };
 
-async function toggleLightbox(){
-    console.log('test');
-    let lightbox = document.getElementById('lightbox');   
-    
-    if(lightbox.style.display=="none"){
-        lightbox.style.display="flex";
-    } else {
-        lightbox.style.display="none"
-    }
-}
-
-
 async function createLightbox(medias){
     let lightbox = document.getElementById('lightbox');
     lightbox.innerHTML=`
@@ -350,36 +342,34 @@ async function createLightbox(medias){
     containerVideo.className='video-container';
     containerMedia.style.width=(1050*nbr)+"px";
      
-    function showHide() {
-        if(p==-nbr+1){
-            leftArrow.style.visibility="hidden";
-        }else{
-            leftArrow.style.visibility="visible";
-        }
+    // function showHide() {
+    //     if(p==-nbr+1){
+    //         leftArrow.style.visibility="hidden";
+    //     }else{
+    //         leftArrow.style.visibility="visible";
+    //     }
 
-        if(p==0){
-            rightArrow.style.visibility="hidden";
-        }else{
-            rightArrow.style.visibility="visible";
-        }
-    }
-    leftArrow.onclick=function() {
+    //     if(p==0){
+    //         rightArrow.style.visibility="hidden";
+    //     }else{
+    //         rightArrow.style.visibility="visible";
+    //     }
+    // }
+    rightArrow.onclick=function() {
         if(p>-nbr+1) {
-            p--;
-            console.log('test')
+            p--;            
             containerMedia.style.transform="translate("+p*1200+"px)";
             containerMedia.style.transition="all 0.5s ease";
-            showHide();
+            // showHide();
 
         }        
     }
-    rightArrow.onclick=function() {
+    leftArrow.onclick=function() {
         if(p<0) {
-            p++
-            console.log('test2')
+            p++;            
             containerMedia.style.transform="translate("+p*1200+"px)";
             containerMedia.style.transition="all 0.5s ease";
-            showHide();
+            // showHide();
         }        
     }
 
@@ -429,7 +419,21 @@ async function createLightbox(medias){
 
 }
 
+async function toggleLightbox(){
+    
+    let lightbox = document.getElementById('lightbox');   
+    
+    if(lightbox.style.display=="none"){
+        lightbox.style.display="flex";
+    } else {
+        lightbox.style.display="none"
+    }
+}
 
+async function totalCounter(likes){
+     console.log(likes)
+     console.log('test')
+}
 
 async function init() {
     

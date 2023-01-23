@@ -5,7 +5,11 @@
     list-style: none;
     text-decoration: none;
 }
-body {font-size: 24px;font-family: "DM Sans", sans-serif;}
+body {
+    font-size: 24px;
+    font-family: "DM Sans", sans-serif;
+    position: relative;
+}
 a {color: inherit}
 
 
@@ -151,7 +155,8 @@ form  #message {
     gap: 95px;
 }
 
-section .box {
+section .box-img,
+section .box-video {
 
     height: 300px;
     width: 350px;
@@ -310,6 +315,52 @@ margin: 0 150px;
 }
 
 
+/* partie Legende */
+.video .legend,
+.img .legend {
+    display: flex;
+    position: relative;
+    align-items: top;
+   
+}
+.legend .text {
+    color: #901C1C;
+    width: 300px;
 
+}
+.legend .likes {
+    color: #901C1C;
+    position:absolute;    
+    right: 40px;
+    
+}
+.legend .fa-heart {
+    color: #901C1C;
+    position:absolute;
+    top: 4px;
+    right: 0px;
+}
 
+/* Compteur */
 
+#counter {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;    
+    height: 89px;
+    width: 376px;
+    border-radius: 5px;
+    background: #DB8876;
+    padding: 0 30px;
+    margin-right: 36px;
+}
+.total_likes {
+    width: 110px;
+    display: flex;
+    justify-content: space-between;
+    align-items:  center;
+    margin: 0 10px;
+}
