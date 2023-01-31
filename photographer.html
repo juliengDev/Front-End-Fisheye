@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="/css/photographer.css">
@@ -11,8 +11,8 @@
   </head>
   <body>
 
-    <header>
-      <img src="assets/images/logo.png" class="logo" />
+    <header role="banner">
+      <a href="./index.html"><img src="assets/images/logo.png" class="logo" alt="Fisheye Home page"/></a>
     </header>
 
     <main id="main">
@@ -36,14 +36,38 @@
     </div>     
     </div>
 
-    <div id="lightbox">
- 
+    
+    <div id="lightbox2">
+      <div class="lightbox-container">
+        <i id='l2' class="fa-sharp fa-solid fa-arrow-left fa-2xl"></i>
+        <div id="media-container2">
+          <div id="video-container2">
+            
+              <video class="video" id="videoLightbox" src=" "></video>              
+              <p class="picture-name" id="titreVideoLightbox"></p>
+            
+          </div>
+          <div id="img-container2">
+                          
+              <img  class="img" id="imgLightbox" src="" alt="">
+              <p class="picture-name" id="titreImgLightbox"></p>
+            
+          </div>                   
+        </div>        
+        <i id='r2' class="fa-sharp fa-solid fa-arrow-right fa-2xl"></i>         
+      </div>
+    <i id="xmark2" class="xmark fa-sharp fa-solid fa-xmark fa-2xl"></i>
     </div>
 
     <section class="media">
     </section>
 
-    <div class="container-counter">      
+    <div class="container-counter">
+      <div id="totalLikes" class="total_Likes">
+        <p id="number" class="number"></p>
+        <i id="heart" class="fa-solid fa-heart"></i> 
+      </div>
+      <p id="price" class="price"></p>     
     </div>
     
    

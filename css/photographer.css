@@ -236,7 +236,9 @@ section .box-video {
 
 
 /* La lightbox */
-#lightbox {    
+
+#lightbox2 {
+    display:none;    
     position: relative;
     max-height: 980px;
     width: 1250px;
@@ -245,23 +247,25 @@ section .box-video {
     overflow: hidden;
     
 }
-#lightbox .fa-xmark {
+
+#xmark2 {
     position: absolute;
     top:45px;
     right: 27px;
     color: #901C1C;
     transform: scale(1.5);
+    cursor: pointer;
     
 }
 .lightbox-container {
-    display: flex;
-   
+    display: flex;   
     align-items: center;
     width: 1100px;
     height: 974px;
     
 }
-#lightbox .lightbox-container i {
+
+#lightbox2 .lightbox-container i {
     position: absolute;
     cursor: pointer;
     padding: 0 32px;
@@ -271,45 +275,53 @@ section .box-video {
     transform: scale(1.5);
     color: #901C1C;
 }
- .lightbox-container #l {
+ 
+ .lightbox-container #l2 {
     left: 0;  
     
 }
- .lightbox-container #r {
+ 
+ .lightbox-container #r2 {
     right: 0;   
     
 }
-#media-container {
 
+#media-container2 {
+width: 1050px;
 height: 900px;
 display: flex;
 align-items: center;
+justify-content: center;
     
 }
     
-#video-container,
-#img-container {    
 
+#video-container2,
+#img-container2 {    
+max-width: 1050px;
+max-height: 900px;
 display: flex; 
 padding: 20px 10px;
 align-items: center;   
 }
 
-#video-container .video video,
-#img-container .img img {
+
+#video-container2 .video video,
+#img-container2 .img img {
 height: 900px;
 width: 900px;
 object-fit: cover;
 margin: 0 150px;
 
-
 }
-#video-container .video p {
+
+#video-container2 .video p {
     margin: 0 150px;
     color: #901C1C;
 
 }
-#img-container .img p {
+
+#img-container2 .img p {
     margin: 0 150px;
     color: #901C1C;
 }
@@ -319,6 +331,7 @@ margin: 0 150px;
 .video .legend,
 .img .legend {
     display: flex;
+    max-width: 350px;
     position: relative;
     align-items: top;
    

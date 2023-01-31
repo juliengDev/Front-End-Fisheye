@@ -46,10 +46,10 @@ function photographerFactory(data,page) {
             const article = document.createElement( 'article' );
             const img = document.createElement( 'img' );
             const a = document.createElement('a');
-            const h2 = document.createElement( 'h2' ); 
-            const cityElement = document.createElement( 'div' );
-            const taglineElement = document.createElement( 'div' );
-            const priceElement = document.createElement( 'div' );
+            const h2 = document.createElement( 'h2' );
+            const cityElement = document.createElement( 'h3' );
+            const taglineElement = document.createElement( 'h4' );
+            const priceElement = document.createElement( 'h5' );
 
             
             // Modifier les elements du DOM

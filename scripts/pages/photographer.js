@@ -6,7 +6,8 @@ let mediaPopularity =[];
 let mediaDate =[];
 let mediaTitle =[];
 let photographerModel;
-let mediasModel;
+let mediaModels = [];
+// let mediasModel;
 
 
 //Recuperation des donnees
@@ -208,16 +209,16 @@ async function displayData(photographer,medias) {
     photographerModel = photographerFactory(photographer,"photographer");    
     const userCardDOM = photographerModel.getUserCardDOM();   
     photographersSection.appendChild(userCardDOM);   
-    // console.log(photographerModel)
+    
 
     // Modal Contactez-moi
     createContactForm(photographerModel.name)
 
     // Partie Compteur
-    const counterSection = document.querySelector(".container-counter");
-    mediasModel = mediaFactory(medias,photographerModel.name,"photographer",photographerModel.price);
+    // const counterSection = document.querySelector(".container-counter");
+    // mediasModel = mediaFactory(medias,photographerModel.name,"photographer",photographerModel.price);
    
-    // console.log(mediasModel)   
+      
     
 
     //Creation des listes de medias triees
@@ -257,37 +258,127 @@ async function displayData(photographer,medias) {
      
 
     // ------------------------------------------ Medias ------------------------------------------
-    let mediaModels = [];    
+        
     let sum = 0;
+    let order = 0;
+    let totalLikes = document.getElementById('totalLikes');
+    let number = document.getElementById('number');
+    let heart = document.getElementById('heart');
+    let price = document.getElementById('price');
+
+    
 
     const mediasSection = document.querySelector(".media");    
     mediaPopularity.forEach((media) => {
-        const mediasModel = mediaFactory(media,photographerModel.name);                     
+        const mediasModel = mediaFactory(media,photographerModel.name,order);                     
         const userMediaDOM = mediasModel.getUserMediaDOM();
         mediasSection.appendChild(userMediaDOM);
         mediaModels.push(mediasModel);
-        sum+= media.likes
-        
-    });
-    
-    const userCounterDOM = mediasModel.getCounterCardDOM(sum);
-    counterSection.appendChild(userCounterDOM)
-   
-    createLightbox(mediaModels);
+        sum+= media.likes;
+        order++;        
+    });    
 
-    let mediaImg = document.getElementsByClassName('box-img');
-    let mediaVideo = document.getElementsByClassName('box-video');
     
-    for (element of mediaImg) {
-        element.addEventListener('click', toggleLightbox);
-    }
-    for (element of mediaVideo){
-        element.addEventListener('click', toggleLightbox);
-    }
+    
+    //Compteur global de likes
+    number.textContent=sum;
+    price.textContent=photographerModel.price+" €/jour";
+
+    
+    mediaModels.forEach((media) => {
+        const medias = document.getElementById("media" + media.order)      
+
+        medias.addEventListener('click', function(){
+            updateLightbox(media.order)
+        })
+    })   
+   
     
     // Tri des medias
     const selectFilter = document.getElementById('media-filter');
     selectFilter.addEventListener('change', mediaFilter);
+};
+
+async function updateLightbox(order) {
+    console.log(order)
+    if(order >= 0 && order < mediaModels.length) {
+
+        let lightbox = document.getElementById('lightbox2');
+        lightbox.style.display="none";
+    
+        let containerMedia = document.getElementById('media-container2');
+        let containerImg = document.getElementById('img-container2');
+        let containerVideo = document.getElementById('video-container2');
+        let leftArrow = document.getElementById('l2');
+        let rightArrow = document.getElementById('r2');
+        let xmark= document.getElementById('xmark2');
+        let imgLightbox = document.getElementById('imgLightbox');
+        let titreImgLightbox = document.getElementById('titreImgLightbox')
+        let videoLightbox = document.getElementById('videoLightbox');
+        let titreVideoLightbox = document.getElementById('titreVideoLightbox')
+    
+        
+        const media = mediaModels[order]
+        
+        
+    
+        if (media.image != undefined) {
+            // img
+            containerVideo.style.display="none";
+            containerImg.style.display="flex";
+            
+            imgLightbox.setAttribute("src", media.mediaDirectory + media.image)        
+            titreImgLightbox.textContent= media.title;
+                    
+            
+        } else {
+            //video
+            containerVideo.style.display="flex";
+            containerImg.style.display="none"            
+            
+            videoLightbox.setAttribute('src', media.mediaDirectory + media.video);
+            videoLightbox.setAttribute('height', '900px')
+            titreVideoLightbox.textContent= media.title;            
+            
+        } 
+          
+        
+        if(lightbox.style.display=="none"){
+            lightbox.style.display="flex";
+        } else {
+            lightbox.style.display="none"
+        }  
+    
+        leftArrow.onclick =function() {     
+            
+            updateLightbox(order-1)
+
+        };
+
+        rightArrow.onclick = function() {
+
+            updateLightbox(order+1)
+            
+        };
+
+         xmark.onclick = function() {
+            if(lightbox.style.display=="none"){
+                lightbox.style.display="flex";
+            } else {
+                lightbox.style.display="none"
+            }  
+         }
+
+    }
+   
+   
+    // la fonction updateLightbox doit recuperer l'objet media qui correspond au parametre order  
+    // mediaModels[order];
+    // La fonction updateLightbox, a appeler sur le bouton previous/next avec un onclick
+    // onclick = appeler la function updateLightbox avec en parametre order
+    // icone previous  = order--
+    // icone next = order++    
+        
 };
 
 async function mediaFilter() {
@@ -308,133 +399,28 @@ async function mediaFilter() {
         
     }
 
+    mediaModels = [];
+    let order= 0;
+
     mediaToDisplay.forEach((media) => {
-        const mediasModel = mediaFactory(media,photographerModel.name);        
+        
+        const mediasModel = mediaFactory(media,photographerModel.name,order);        
         const userMediaDOM = mediasModel.getUserMediaDOM();
         mediasSection.appendChild(userMediaDOM);
+        mediaModels.push(mediasModel);
+        order++;
+
     });
 
+    mediaModels.forEach((media) => {
+        const medias = document.getElementById("media" + media.order)      
+
+        medias.addEventListener('click', function(){
+            updateLightbox(media.order)
+        })
+    })
+
 };
-
-async function createLightbox(medias) {
-    let lightbox = document.getElementById('lightbox');
-    lightbox.innerHTML=`
-    <div class="lightbox-container">
-        <i id='l' class="fa-sharp fa-solid fa-arrow-left fa-2xl"></i>
-        <div id="media-container">
-          <div id="video-container"></div>
-          <div id="img-container"></div>
-        </div>        
-        <i id='r' class="fa-sharp fa-solid fa-arrow-right fa-2xl"></i>         
-    </div>
-    <i class="xmark fa-sharp fa-solid fa-xmark fa-2xl"></i>
-      `;        
-    lightbox.style.display="none";
-    let p=0;
-    let nbr = medias.length;
-    let containerMedia = document.getElementById('media-container');
-    let containerImg = document.getElementById('img-container');
-    let containerVideo = document.getElementById('video-container');
-    let leftArrow = document.getElementById('l');
-    let rightArrow = document.getElementById('r');
-
-    let xmark= document.querySelector('.xmark');
-    xmark.addEventListener('click',toggleLightbox)
-
-    
-
-
-    containerImg.className='img-container';
-    containerVideo.className='video-container';
-    containerMedia.style.width=(1050*nbr)+"px";
-     
-    // function showHide() {
-    //     if(p==-nbr+1){
-    //         leftArrow.style.visibility="hidden";
-    //     }else{
-    //         leftArrow.style.visibility="visible";
-    //     }
-
-    //     if(p==0){
-    //         rightArrow.style.visibility="hidden";
-    //     }else{
-    //         rightArrow.style.visibility="visible";
-    //     }
-    // }
-    rightArrow.onclick=function() {
-        if(p>-nbr+1) {
-            p--;            
-            containerMedia.style.transform="translate("+p*1200+"px)";
-            containerMedia.style.transition="all 0.5s ease";
-            // showHide();
-
-        }        
-    }
-    leftArrow.onclick=function() {
-        if(p<0) {
-            p++;            
-            containerMedia.style.transform="translate("+p*1200+"px)";
-            containerMedia.style.transition="all 0.5s ease";
-            // showHide();
-        }        
-    }
-
-    
-   
-
-
-    medias.forEach((media)=> {
-        
-        if(media.image != undefined) { 
-
-        let element = document.createElement('div');
-        let img = document.createElement('img');
-        let titre = document.createElement('p');
-        img.setAttribute('src', media.mediaDirectory + media.image);
-        element.className="img";
-        titre.textContent= media.title;
-        titre.className="picture-name";
-
-        containerImg.appendChild(element);
-        element.appendChild(img);
-        element.appendChild(titre);
-
-        
-
-        } else {
-            let element = document.createElement('div');
-            let video = document.createElement('video');
-            let titre = document.createElement('p');
-
-            element.className="video";
-            video.setAttribute('src', media.mediaDirectory + media.video);
-            video.setAttribute('height', '900px')
-            titre.textContent= media.title;
-            titre.className="picture-name";
-
-            containerVideo.appendChild(element);
-            element.appendChild(video);
-            element.appendChild(titre);
-
-
-        }
-            
-    }) 
-
-    
-
-}
-
-async function toggleLightbox() {
-    
-    let lightbox = document.getElementById('lightbox');   
-    
-    if(lightbox.style.display=="none"){
-        lightbox.style.display="flex";
-    } else {
-        lightbox.style.display="none"
-    }
-}
 
 async function init() {
     
