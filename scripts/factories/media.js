@@ -41,7 +41,6 @@ function mediaFactory(data,photographerName,order) {
 
         heart.addEventListener('click', function(){
           let total = document.getElementsByClassName('number')[0];
-          console.log('test')
           total.textContent = parseInt(total.textContent)+1           
           likes+=1;
           nbLikes.textContent=`${likes}`;          

@@ -25,14 +25,31 @@
 			</div>
 		</div>
     
-    <div class="media-dropdown">
-      <label for="media-filter">Trier par</label>
-      <div class="custom-select">
-      <select name="media-filter" id="media-filter">
-        <option value="Popularite">Popularite</option>
-        <option value="Date">Date</option>
-        <option value="Titre">Titre</option>
-      </select>
+    <div class="media-dropdown images__sorter">
+      <label for="select" class="label">Trier par</label>
+      <div class="custom-select images__select-container">
+
+        <div class="dropdown-menu__icon-container active-sort-button-icon">
+          <i class="fa-xs fa-solid fa-chevron-down dropdown-menu__icon"></i>
+        </div>
+
+        <select name="orderby" class="select select--mobile-only"  id="media-filter">
+          <option class="option" value="Popularite">Popularité</option>
+          <option class="option" value="Date">Date</option>
+          <option class="option" value="Titre">Titre</option>
+        </select>
+
+        <button id="buttonDropDown" class="dropdown-menu__sort-button" type="button" role="listbox"
+        aria-expanded="false" aria-level="Bouton pour ouvrir le menu déroulant">Popularité</button>
+
+        <div id="dropdown-menu" class="dropdown-menu hide">
+          <ul class="dropdown-menu_list">
+            <li class="dropdown-menu_list-item" id="popularity">Popularité</li>
+            <li class="dropdown-menu_list-item" id="date">Date</li>
+            <li class="dropdown-menu_list-item" id="title">Titre</li>
+          </ul>
+        </div>
+
     </div>     
     </div>
 
@@ -43,7 +60,7 @@
         <div id="media-container2">
           <div id="video-container2">
             
-              <video class="video" id="videoLightbox" src=" "></video>              
+              <video class="video" id="videoLightbox" controls></video>              
               <p class="picture-name" id="titreVideoLightbox"></p>
             
           </div>
@@ -63,13 +80,12 @@
     </section>
 
     <div class="container-counter">
-      <div id="totalLikes" class="total_Likes">
+      <div id="totalLikes" class="total_likes">
         <p id="number" class="number"></p>
         <i id="heart" class="fa-solid fa-heart"></i> 
       </div>
       <p id="price" class="price"></p>     
-    </div>
-    
+    </div>    
    
     <script src="/scripts/factories/photographer.js"></script>
     <script src="/scripts/factories/media.js"></script>    

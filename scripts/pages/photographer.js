@@ -212,13 +212,36 @@ async function displayData(photographer,medias) {
     
 
     // Modal Contactez-moi
-    createContactForm(photographerModel.name)
+    createContactForm(photographerModel.name);
 
-    // Partie Compteur
-    // const counterSection = document.querySelector(".container-counter");
-    // mediasModel = mediaFactory(medias,photographerModel.name,"photographer",photographerModel.price);
-   
-      
+    //Dropdown Menu
+    const popularity = document.getElementById("popularity");
+    const date = document.getElementById("date");
+    const title = document.getElementById("title");
+    const buttonElement = document.querySelector(".dropdown-menu__sort-button");
+    const dropDownMenu = document.getElementById("dropdown-menu");
+
+    buttonElement.addEventListener("click",toggleDropDownListItem);
+
+    popularity.addEventListener("click",function() {
+        // console.log("Popularité")
+        buttonElement.textContent="Popularité"
+        dropDownMenu.style.display="none";
+        mediaFilter()
+    })
+    date.addEventListener("click",function() {
+        // console.log("Date")
+        buttonElement.textContent="Date"
+        dropDownMenu.style.display="none";
+        mediaFilter()
+    })
+    title.addEventListener("click",function() {
+        // console.log("Titre")
+        buttonElement.textContent="Titre"
+        dropDownMenu.style.display="none";
+        mediaFilter()
+    })
+    
     
 
     //Creation des listes de medias triees
@@ -294,9 +317,9 @@ async function displayData(photographer,medias) {
     })   
    
     
-    // Tri des medias
-    const selectFilter = document.getElementById('media-filter');
-    selectFilter.addEventListener('change', mediaFilter);
+    // // Tri des medias
+    // const selectFilter = document.getElementById('media-filter');
+    // selectFilter.addEventListener('change', mediaFilter);
 };
 
 async function updateLightbox(order) {
@@ -381,20 +404,37 @@ async function updateLightbox(order) {
         
 };
 
-async function mediaFilter() {
-    const selectFilter = document.getElementById('media-filter');
+async function toggleDropDownListItem() {
     
+    const dropDownMenu = document.getElementById("dropdown-menu");    
+
+    if(dropDownMenu.style.display="none") {
+        dropDownMenu.style.display="block"        
+    } 
+    else 
+    {
+        dropDownMenu.style.display="none"
+    }
+
+};
+
+async function mediaFilter() {
+           
     const mediasSection = document.querySelector(".media");
+    const selectFilter = document.getElementById('buttonDropDown');
+
+    console.log(selectFilter.textContent)
+
     mediasSection.innerHTML='';
     let mediaToDisplay=[];
 
-    if (selectFilter.value == 'Date'){
+    if (selectFilter.textContent == 'Date'){
         mediaToDisplay = mediaDate;
        
-    } else if (selectFilter.value == 'Popularite'){
+    } else if (selectFilter.textContent == 'Popularité'){
         mediaToDisplay = mediaPopularity;
        
-    } else if (selectFilter.value == 'Titre'){
+    } else if (selectFilter.textContent == 'Titre'){
         mediaToDisplay = mediaTitle;
         
     }
@@ -419,8 +459,50 @@ async function mediaFilter() {
             updateLightbox(media.order)
         })
     })
-
 };
+
+// async function mediaFilter() {
+//     const selectFilter = document.getElementById('media-filter');       
+//     const mediasSection = document.querySelector(".media");
+
+//     mediasSection.innerHTML='';
+//     let mediaToDisplay=[];
+
+//     if (selectFilter.value == 'Date'){
+//         mediaToDisplay = mediaDate;
+       
+//     } else if (selectFilter.value == 'Popularite'){
+//         mediaToDisplay = mediaPopularity;
+       
+//     } else if (selectFilter.value == 'Titre'){
+//         mediaToDisplay = mediaTitle;
+        
+//     }
+
+//     mediaModels = [];
+//     let order= 0;
+
+//     mediaToDisplay.forEach((media) => {
+        
+//         const mediasModel = mediaFactory(media,photographerModel.name,order);        
+//         const userMediaDOM = mediasModel.getUserMediaDOM();
+//         mediasSection.appendChild(userMediaDOM);
+//         mediaModels.push(mediasModel);
+//         order++;
+
+//     });
+
+//     mediaModels.forEach((media) => {
+//         const medias = document.getElementById("media" + media.order)      
+
+//         medias.addEventListener('click', function(){
+//             updateLightbox(media.order)
+//         })
+//     })
+
+   
+
+// };
 
 async function init() {
     
@@ -428,6 +510,7 @@ async function init() {
     const idPhotographer = url.searchParams.get('q');
     const {photographer, media} = await getPhotographer(idPhotographer);
     displayData(photographer, media);
+        
     // console.log(photographer);
     // console.log(media);
     
