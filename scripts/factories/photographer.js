@@ -3,7 +3,7 @@
  * 1 - Stocker un objet contenant les proprietes des photographes dans une variable data
  * 2 - Recuperer la photo de profil du photographe dans les assets
  * 3 - Ajouter l'id du photographe dans l'url de la page photographer pour assurer la redirection du profil
- * 4 - Retourner la balise article a la condition d'etre sur la page d'acceuil
+ * 4 - Retourner la balise section a la condition d'etre sur la page d'acceuil
  * 5 - Retourner la balise div a la condition d'etre sur la page photographe
  *  
  * @param {*} data - Contient les donnees du photographe
@@ -36,45 +36,34 @@ function photographerFactory(data,page) {
     if(page == "index") {   
 
         /**
-         * Retourne une balise article contenant les elements HTML a afficher sur la page accueil
-         * @return { article }
+         * Retourne une balise section contenant les elements HTML a afficher sur la page accueil
+         * @return { card }
          */
 
         function getUserCardDOM() {
             
             // Declarer les elements du DOM
-            const article = document.createElement( 'article' );
-            const img = document.createElement( 'img' );
-            const a = document.createElement('a');
-            const h2 = document.createElement( 'h2' );
-            const cityElement = document.createElement( 'h3' );
-            const taglineElement = document.createElement( 'h4' );
-            const priceElement = document.createElement( 'h5' );
-
+            const card = document.createElement( 'section' );
+            
             
             // Modifier les elements du DOM
-            img.className = "img"
-            img.setAttribute("src", picture);
-            a.setAttribute("href", href);
-            h2.className = "name";        
-            h2.textContent = name;              
-            cityElement.className = "city";
-            cityElement.textContent = city;
-            taglineElement.className = "tagline";
-            taglineElement.textContent = tagline;
-            priceElement.className = "price";
-            priceElement.textContent = `${price}€/jour`;
+            card.innerHTML =`
+            <a class="card__photograph-profile" title="Visiter le profil de ${name}" href="${href}" target="_blank" role="link">
+                <h2 class="card__name">
+                    <img class="card__image" src="${picture}" alt="Photo de profil de : ${name}">
+                    ${name}
+                </h2>
+            </a>
+            <div class="card__text-container">
+                <h3 class="city">${city}</h3>
+                <h4 class="tagline">${tagline}</h4>
+                <h5 class="price">${price}€/jour</h5>
+            </div>`;            
+            card.className ="card";
+            card.setAttribute("role", "region");
+           
             
-
-            // Ajouter les elements au DOM
-            article.appendChild(img);
-            article.appendChild(a);
-            a.appendChild(h2);        
-            article.appendChild(cityElement);
-            article.appendChild(taglineElement);
-            article.appendChild(priceElement);
-            
-            return article
+            return card;
              
 
         }

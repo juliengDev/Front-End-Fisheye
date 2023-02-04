@@ -7,7 +7,7 @@ let mediaDate =[];
 let mediaTitle =[];
 let photographerModel;
 let mediaModels = [];
-// let mediasModel;
+
 
 
 //Recuperation des donnees

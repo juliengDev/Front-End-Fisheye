@@ -8,18 +8,13 @@
     <title>Fisheye</title>
   </head>
   <body>
-    <header role="banner"> <!-- role=”banner” qui permet d’indiquer que cet élément est l’en-tête principal -->  
-      <a href="./index.html"><img src="assets/images/logo.png" class="logo" alt="Fisheye Home page" /></a>
-      <h1>Nos photographes</h1>
+    <header role="banner" aria-label="En-tête de la page" tabindex="0"> <!-- role=”banner” qui permet d’indiquer que cet élément est l’en-tête principal -->  
+      <a href="./index.html"><img src="assets/images/logo.png" class="logo" alt="Fisheye Home page" title="Lien vers la page d'acceuil" /></a>
+      <h1 tabindex="0">Nos photographes</h1>
     </header>
-    <main id="main">
-        <div class="photographer_section"></div>
-        
-    </main>
-
-       
-    
-    
+    <main id="main" role="main" aria-label="Contenu de la page principale de la page d'accueil" tabindex="0">
+        <div class="photographer_section"></div>        
+    </main>   
     <script src="/scripts/pages/index.js"></script>
     <script src="/scripts/factories/photographer.js"></script>    
   </body>
