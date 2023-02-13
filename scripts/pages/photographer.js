@@ -12,7 +12,7 @@ let mediaModels = [];
 async function getPhotographer(id) {
 
     
-    const url = '/data/photographers.json';
+    const url = './data/photographers.json';
     const requete = await fetch(url, {
         method: 'GET'
     });

@@ -23,7 +23,7 @@
 async function getPhotographers() {
 
     
-    const url = '/data/photographers.json';
+    const url = './data/photographers.json';
     const requete = await fetch(url, {
         method: 'GET'
     });
