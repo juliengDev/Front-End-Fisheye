@@ -174,9 +174,10 @@ section .box-video {
 /* ==================== Bouton de tri  ==================== */
 
 .media-dropdown {    
-    margin-left: 25px;
+    margin: 50px 100px;
     display: flex;
     justify-content: flex-start;
+    align-items: flex-start;
     gap: 25px;      
 }
 
@@ -195,8 +196,7 @@ section .box-video {
 .dropdown-menu__icon-container {
     position: absolute;
     right: 25px;
-    top: 18px;
-    transition: rotate 250ms ease-out;
+    top: 18px;    
     aspect-ratio: 1/1;
     color: #fff;
     height: 12px;
@@ -275,22 +275,30 @@ section .box-video {
 
 #lightbox2 {
     display:none;    
-    position: relative;
-    max-height: 980px;
-    max-width: 1250px;
-    border: 2px solid #95FFF9;
-    margin: 0 auto;
-    overflow: hidden;
-    
+    position: fixed;
+    background-color: #fff;
+    top: 50%;
+    left: 50%;
+    transform : translate(-50%, -50%);
+    width: 80%;
+    height: 95vh;
+    z-index: 1;
+    border-radius: 5px;
+    box-shadow: 0px 2px 8px var(--dialog-shadow-color);
+    overflow: hidden;    
 }
 
 #xmark2 {
     position: absolute;
     top:45px;
-    right: 27px;
+    right: 30px;
     color: #901C1C;
     transform: scale(1.5);
-    cursor: pointer;
+    cursor: pointer;    
+}
+#xmark2:focus{
+    outline: 3px solid blue;
+    outline-offset: 12px;
     
 }
 .lightbox-container {
@@ -315,9 +323,17 @@ section .box-video {
  .lightbox-container #l2 {
     left: 0;      
 }
+#l2:focus {
+    outline: 3px solid blue;
+    outline-offset: 15px;
+}
  
  .lightbox-container #r2 {
     right: 0;     
+}
+#r2:focus {
+    outline: 3px solid blue;
+    outline-offset: 15px;
 }
 
 #media-container2 {
@@ -328,7 +344,7 @@ section .box-video {
 #img-container2,
 #video-container2 {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     flex-direction: column;
     width: 1050px;
     height: 900px;
@@ -355,12 +371,12 @@ section .box-video {
     display: flex;
     max-width: 350px;
     position: relative;
-    align-items: top;
+    
    
 }
 .legend .text {
     color: #901C1C;
-    width: 300px;
+    width: 200px;;
 
 }
 .legend .likes {
@@ -380,6 +396,7 @@ section .box-video {
 /* Compteur */
 
 .container-counter {
+    z-index: 1;
     position: fixed;
     bottom: 0;
     right: 0;
@@ -402,3 +419,34 @@ section .box-video {
 .total_likes i {
     margin-left : 10px;
 }
+.counter-price {
+    color: #000;
+    font-size: 24px;
+
+}
+
+/* Cache les elements de la page */
+.hidden {
+    height: 1px;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: -10000px;
+    width: 1px;
+ }
+ /* Element visuel */
+ .text-control:focus{
+    background: #DBBB76;
+
+ }
+ /* Masquer le contenu à l’écran */
+ .visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+   }

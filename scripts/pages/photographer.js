@@ -1,6 +1,6 @@
 // Variables de portees global utilisees pour la fonction displayData et mediaFilter
 // Declarer au chargement de la page via displayData 
-// Re utiliser lors de l'utilisation du filtre des medias via mediaFilter
+// Utiliser lors de l'utilisation du filtre des medias via mediaFilter
 
 let mediaPopularity =[];
 let mediaDate =[];
@@ -8,9 +8,7 @@ let mediaTitle =[];
 let photographerModel;
 let mediaModels = [];
 
-
-
-//Recuperation des donnees
+// Recuperation des donnees
 async function getPhotographer(id) {
 
     
@@ -53,154 +51,7 @@ async function getPhotographer(id) {
     }
 };
 
-// ------------------------------------------ Formulaire ------------------------------------------
-
-// Formulaire de contact de la page photographe
-function createContactForm(name) {
-
-    let modal = document.querySelector('.modal');
-    let contactButton = document.querySelector('.contact_button');
-    
-    modal.innerHTML=`
-    <header>
-        <h2>Contactez-moi</h2>                    
-        <img id="idCloseContact" src="assets/icons/close.svg" />
-    </header>
-    <p class="name">${name}</p>
-    <form
-    id="reserve"
-    name="reserve"
-    action="index.html"
-    method="get"
-    onsubmit="validate()">
-        <div>
-            <label for="first">Prénom</label>
-            <input
-            class="text-control"
-            type="text"
-            id="first"
-            name="first"
-            maxlength="60"
-            />
-        </div>
-        <div>
-            <label for="last">Nom</label>
-            <input
-            class="text-control"
-            type="text"
-            id="last"
-            name="last"
-            maxlength="60"
-            />
-        </div>
-        <div>
-            <label for="email">Email</label>
-            <input
-            class="text-control"
-            type="email"
-            id="email"
-            name="email" 
-            />
-        </div>
-        <div>
-            <label for"message">Votre message</label>
-            <textarea 
-            name="message" 
-            id="message" 
-            class="text-control" 
-            cols="30" rows="10"
-            wrap="hard"
-            spellcheck="false"></textarea>
-            
-        </div>
-        <button class="send_button" type="submit">Envoyer</button>
-    </form>
-`;
-   
-    let sendButton = document.querySelector('.send_button')
-    let closeContactModal = document.getElementById('idCloseContact');
-    contactButton.addEventListener('click', toggleContactForm);
-    closeContactModal.addEventListener('click',toggleContactForm);
-    // sendButton.addEventListener('click',validate)
-};
-
-// Gere l'affichage de la modal de contact
-function toggleContactForm() {
-    let contactModal = document.getElementById('contact_modal');    
-
-    if(contactModal.style.display == "block"){
-        contactModal.style.display = "none";
-    } else {
-        contactModal.style.display = "block";
-    }
-};
-
-// Message d'erreur personnalise avec l'input concerne et un message a afficher.
-function errorMessage(element, message) {
-
-    const newP = document.createElement("p");
-  
-    newP.classList.add("error");
-    newP.textContent = message;
-    newP.style.color = '#fff';
-    newP.style.fontSize='1.5em'  
-  
-    // Injecte l'élément <p> précédemment créé à l'élément qui doit afficher l'erreur.
-    element.parentNode.insertBefore(newP, element);
-  
-};
-
-// Vérifie si le formulaire est valide à la soumission du formulaire.
-function validate(event) {
-
-    
-    const firstName = document.getElementById("first");
-    const lastName = document.getElementById("last");
-    const email = document.getElementById("email");
-   
-
-    
-    const name_regex = /^[A-zÀ-ú]+$/;    
-    const mail_regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    
-    const errors = document.querySelectorAll(".error");
-  
-    errors.forEach(function(value) {
-      value.remove();
-    });
-  
-    
-    if (!name_regex.test(firstName.value)) {
-        errorMessage(firstName, "Veuillez saisir un prenom valide");
-        return false;
-    
-    } else if (firstName.value.length < 2) {
-        errorMessage(firstName, "Ce champ doit contenir au minimum 2 caractères !");
-        return false;
-    }
-
-    if (!name_regex.test(lastName.value)) {
-        errorMessage(lastName, "Veuillez saisir un nom valide");
-        return false;
-    } else if (lastName.value.length < 2) {
-        errorMessage(lastName, "Ce champ doit contenir au minimum 2 caractères !");
-        return false;
-    }
-   
-    if (!mail_regex.test(email.value)) {
-  
-      errorMessage(email, "Ce champ doit contenir une adresse email valide !");
-      return false;
-    } 
-  
-  
-    
-
-    
-    //* Si tout est OK */
-     
-     event.preventDefault();
-};
+// ------------------------------------------ Affichage des donnees ------------------------------------------
 
 async function displayData(photographer,medias) {    
 
@@ -211,14 +62,14 @@ async function displayData(photographer,medias) {
     photographersSection.appendChild(userCardDOM);   
     
 
-    // Modal Contactez-moi
+    // Modal Contactez-moi    
     createContactForm(photographerModel.name);
 
     //Dropdown Menu
     const popularity = document.getElementById("popularity");
     const date = document.getElementById("date");
     const title = document.getElementById("title");
-    const buttonElement = document.querySelector(".dropdown-menu__sort-button");
+    const buttonElement = document.getElementById("buttonDropDown");
     const dropDownMenu = document.getElementById("dropdown-menu");
 
     buttonElement.addEventListener("click",toggleDropDownListItem);
@@ -227,18 +78,21 @@ async function displayData(photographer,medias) {
         // console.log("Popularité")
         buttonElement.textContent="Popularité"
         dropDownMenu.style.display="none";
+        buttonElement.setAttribute("aria-expanded","false");
         mediaFilter()
     })
     date.addEventListener("click",function() {
         // console.log("Date")
         buttonElement.textContent="Date"
         dropDownMenu.style.display="none";
+        buttonElement.setAttribute("aria-expanded","false");
         mediaFilter()
     })
     title.addEventListener("click",function() {
         // console.log("Titre")
         buttonElement.textContent="Titre"
         dropDownMenu.style.display="none";
+        buttonElement.setAttribute("aria-expanded","false");
         mediaFilter()
     })
     
@@ -310,26 +164,266 @@ async function displayData(photographer,medias) {
     
     mediaModels.forEach((media) => {
         const medias = document.getElementById("media" + media.order)      
-
+        
         medias.addEventListener('click', function(){
-            updateLightbox(media.order)
-        })
-    })   
-   
+            updateLightbox(media.order);
+            
+        });
+        medias.addEventListener('keypress', function(e) {
+            if(e.key==='Enter'){
+                updateLightbox(media.order);     
+                         
+            }
+        });
+
+    })     
     
-    // // Tri des medias
-    // const selectFilter = document.getElementById('media-filter');
-    // selectFilter.addEventListener('change', mediaFilter);
 };
 
+// ------------------------------------------ Formulaire de contact ------------------------------------------
+
+// Formulaire de contact de la page photographe
+async function createContactForm(name) {
+
+    let modal = document.querySelector('.modal');
+    let contactButton = document.querySelector('.contact_button');
+    
+    modal.innerHTML=`
+    <header>
+        <h2>Contactez-moi</h2>                    
+        <img tabindex="0" id="idCloseContact" src="assets/icons/close.svg" />
+    </header>
+    <p class="name">${name}</p>
+    <form
+    id="reserve"
+    name="reserve"
+    action="index.html"
+    method="get"
+    >
+        <div>
+            <label id="first "for="first">Prénom</label>
+            <input                        
+            class="text-control"
+            type="text"
+            id="first"
+            name="first"
+            maxlength="60"
+            aria-labellebdy="first"         
+            aria-required=true
+            
+            />
+        </div>
+        <div>
+            <label id="last" for="last">Nom</label>
+            <input
+            required
+            aria-required=true
+            aria-labellebdy="last"  
+            class="text-control"
+            type="text"
+            id="last"
+            name="last"
+            maxlength="60"
+            />
+        </div>
+        <div>
+            <label id="email" for="email">Email</label>
+            <input
+            required
+            aria-required=true
+            aria-labellebdy="email" 
+            class="text-control"
+            type="email"
+            id="email"
+            name="email" 
+            />
+        </div>
+        <div>
+            <label for"message">Votre message</label>            
+            <textarea 
+            required
+            aria-required=true
+            name="message" 
+            id="message" 
+            class="text-control" 
+            cols="30" rows="10"
+            wrap="hard"
+            spellcheck="false"
+            aria-label="Saisissez votre message">            
+            </textarea>
+            
+        </div>
+        <button class="send_button" type="submit">Envoyer</button>
+    </form>
+`;
+   
+    let sendButton = document.querySelector('.send_button')
+    let closeContactModal = document.getElementById('idCloseContact');
+    contactButton.addEventListener('click', toggleContactForm);
+    closeContactModal.addEventListener('click',toggleContactForm);
+    sendButton.addEventListener('click',validate)
+};
+
+// Gere l'affichage de la modal de contact
+async function toggleContactForm() {
+    let contactModal = document.getElementById('contact_modal');    
+    let modal = document.querySelector('.modal');    
+    const banner = document.getElementById("header")
+    const photographerHeader = document.querySelector(".photograph-header")
+    const globalCounter = document.querySelector(".container-counter");
+    const menuMedias = document.querySelector(".media-dropdown");
+    const lightbox = document.getElementById("lightbox2");
+    const medias = document.querySelector(".media");
+    
+
+    if(contactModal.style.display == "block") {
+
+        contactModal.style.display = "none";
+        modal.setAttribute("tabindex","0");
+        modal.setAttribute("aria-hidden","true")
+        contactModal.setAttribute("role", "dialog");
+        banner.setAttribute("aria-hidden","false");
+        photographerHeader.setAttribute("aria-hidden","false");
+        globalCounter.setAttribute("aria-hidden","false");
+        menuMedias.setAttribute("aria-hidden","false");
+        lightbox.setAttribute("aria-hidden","false");
+        medias.setAttribute("aria-hidden","false");
+        
+        
+    } else {
+
+        contactModal.style.display = "block";
+        contactModal.setAttribute("role", "dialog");
+        modal.setAttribute("tabindex", "0");
+        modal.setAttribute("role","group");
+        modal.setAttribute("aria-labelledby", "Formulaire de contact")
+        modal.focus();
+        banner.setAttribute("aria-hidden","true");
+        photographerHeader.setAttribute("aria-hidden","true");
+        globalCounter.setAttribute("aria-hidden","true");
+        menuMedias.setAttribute("aria-hidden","true");
+        lightbox.setAttribute("aria-hidden","true");
+        medias.setAttribute("aria-hidden","true");
+
+        
+        
+    }
+};
+
+// Message d'erreur personnalise avec l'input concerne et un message a afficher.
+async function errorMessage(element, message) {
+
+    const newP = document.createElement("p");
+  
+    newP.classList.add("error");
+    newP.textContent = message;
+    newP.style.color = '#FF0000';
+    newP.style.fontSize='1.5em'  
+  
+    // Injecte l'élément <p> précédemment créé à l'élément qui doit afficher l'erreur.
+    element.parentNode.insertBefore(newP, element);
+  
+};
+
+// Vérifie si le formulaire est valide à la soumission du formulaire.
+async function validate(event) {
+    
+
+    
+    const firstName = document.getElementById("first");
+    const lastName = document.getElementById("last");
+    const email = document.getElementById("email");
+    let contactModal = document.getElementById("contact_modal")
+
+    
+    const name_regex = /^[A-zÀ-ú]+$/;    
+    const mail_regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
+    // /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    
+    const errors = document.querySelectorAll(".error");
+  
+    errors.forEach(function(value) {
+      value.remove();
+    });
+  
+    
+    if (!name_regex.test(firstName.value)) {
+        errorMessage(firstName, "Veuillez saisir un prenom valide");
+        firstName.setAttribute("aria-invalid", "true");
+        return false;
+    
+    } else if (firstName.value.length < 2) {
+        errorMessage(firstName, "Ce champ doit contenir au minimum 2 caractères !");
+        firstName.setAttribute("aria-invalid", "true");
+        return false;
+    } else {
+        firstName.setAttribute("aria-invalid", "false");
+    }
+
+    if (!name_regex.test(lastName.value)) {
+        errorMessage(lastName, "Veuillez saisir un nom valide");
+        lastName.setAttribute("aria-invalid", "true");
+        return false;
+    } else if (lastName.value.length < 2) {
+        errorMessage(lastName, "Ce champ doit contenir au minimum 2 caractères !");
+        lastName.setAttribute("aria-invalid", "true");
+        return false;
+    } else {
+        lastName.setAttribute("aria-invalid", "false");
+    }
+   
+    if (!mail_regex.test(email.value)) {  
+        errorMessage(email, "Ce champ doit contenir une adresse email valide !");
+        email.setAttribute("aria-invalid", "true");
+        return false;
+    } else {
+        email.setAttribute("aria-invalid", "false");
+    }
+
+    
+    //* Si tout est OK */    
+    event.preventDefault();
+    // event.stopPropagation();
+    contactModal.style.display="none";
+    
+
+     
+};
+
+// Ferme la modale de formulaire quand on presse la touche ESC
+async function escapeContactform() {
+    let contactModal = document.getElementById('contact_modal')
+    const closeButton = document.getElementById("idCloseContact");
+
+    closeButton.addEventListener("keypress", function(e){
+
+        if(e.key==='Enter'){
+            contactModal.style.display = "none";   
+                     
+        }
+
+    })
+    
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          // close modal here
+           
+          toggleContactForm();
+          contactModal.style.display="none";
+        }
+      })    
+};
+
+// ------------------------------------------ La modale Lightbox ------------------------------------------
+
 async function updateLightbox(order) {
-    console.log(order)
+    
     if(order >= 0 && order < mediaModels.length) {
 
         let lightbox = document.getElementById('lightbox2');
         lightbox.style.display="none";
     
-        let containerMedia = document.getElementById('media-container2');
+        
         let containerImg = document.getElementById('img-container2');
         let containerVideo = document.getElementById('video-container2');
         let leftArrow = document.getElementById('l2');
@@ -339,6 +433,12 @@ async function updateLightbox(order) {
         let titreImgLightbox = document.getElementById('titreImgLightbox')
         let videoLightbox = document.getElementById('videoLightbox');
         let titreVideoLightbox = document.getElementById('titreVideoLightbox')
+
+        const banner = document.getElementById("header")
+        const photographerHeader = document.querySelector(".photograph-header")
+        const globalCounter = document.querySelector(".container-counter");
+        const menuMedias = document.querySelector(".media-dropdown");    
+        const medias = document.querySelector(".media");
     
         
         const media = mediaModels[order]
@@ -350,7 +450,8 @@ async function updateLightbox(order) {
             containerVideo.style.display="none";
             containerImg.style.display="flex";
             
-            imgLightbox.setAttribute("src", media.mediaDirectory + media.image)        
+            imgLightbox.setAttribute("src", media.mediaDirectory + media.image)
+            imgLightbox.setAttribute("alt", `${media.title}`)        
             titreImgLightbox.textContent= media.title;
                     
             
@@ -360,38 +461,90 @@ async function updateLightbox(order) {
             containerImg.style.display="none"            
             
             videoLightbox.setAttribute('src', media.mediaDirectory + media.video);
+            videoLightbox.setAttribute("alt", `${media.title}`)
             videoLightbox.setAttribute('height', '900px')
-            titreVideoLightbox.textContent= media.title;            
+            titreVideoLightbox.textContent= media.title;     
+
+        }
             
-        } 
           
         
         if(lightbox.style.display=="none"){
             lightbox.style.display="flex";
+            lightbox.setAttribute("aria-hidden","false");            
+            lightbox.setAttribute("role", "dialog");
+            
+            xmark.focus();
+
+            banner.setAttribute("aria-hidden","true");
+            photographerHeader.setAttribute("aria-hidden","true");
+            globalCounter.setAttribute("aria-hidden","true");
+            menuMedias.setAttribute("aria-hidden","true");        
+            medias.setAttribute("aria-hidden","true");
+
         } else {
-            lightbox.style.display="none"
+            lightbox.style.display="none";
+            
         }  
-    
-        leftArrow.onclick =function() {     
+        leftArrow.addEventListener('keypress', function(e) {
+            if(e.key ==='Enter'){
+                updateLightbox(order-1);
+                leftArrow.focus();
+            }
+        });
+
+        leftArrow.onclick =function(event) {     
             
             updateLightbox(order-1)
 
+
         };
 
-        rightArrow.onclick = function() {
+        rightArrow.onclick = function(event) {
 
             updateLightbox(order+1)
             
         };
 
-         xmark.onclick = function() {
+        rightArrow.addEventListener('keypress', function(e) {
+            if(e.key ==='Enter')       {
+                updateLightbox(order+1);
+                rightArrow.focus()
+                
+            }
+        });
+
+        xmark.onclick = function() {
+
             if(lightbox.style.display=="none"){
                 lightbox.style.display="flex";
             } else {
-                lightbox.style.display="none"
-            }  
-         }
+                lightbox.style.display="none";
+                lightbox.setAttribute("aria-hidden","true");
+                lightbox.setAttribute("role", "dialog");
 
+                banner.setAttribute("aria-hidden","false");
+                photographerHeader.setAttribute("aria-hidden","false");
+                globalCounter.setAttribute("aria-hidden","false");
+                menuMedias.setAttribute("aria-hidden","false");        
+                medias.setAttribute("aria-hidden","false");
+            }  
+        }
+
+        xmark.addEventListener('keypress', function(e) {
+            if(e.key ==='Enter')            {
+                lightbox.style.display="none";
+                lightbox.setAttribute("aria-hidden","true");
+                lightbox.setAttribute("role", "dialog");
+
+                banner.setAttribute("aria-hidden","false");
+                photographerHeader.setAttribute("aria-hidden","false");
+                globalCounter.setAttribute("aria-hidden","false");
+                menuMedias.setAttribute("aria-hidden","false");        
+                medias.setAttribute("aria-hidden","false");
+                
+            }
+        });
     }
    
    
@@ -404,18 +557,45 @@ async function updateLightbox(order) {
         
 };
 
+async function escapeLightbox() {
+    const lightbox = document.getElementById('lightbox2')
+    const banner = document.getElementById("header")
+    const photographerHeader = document.querySelector(".photograph-header")
+    const globalCounter = document.querySelector(".container-counter");
+    const menuMedias = document.querySelector(".media-dropdown");    
+    const medias = document.querySelector(".media");
+    
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+        
+        lightbox.style.display="none";
+        lightbox.setAttribute("aria-hidden","true");        
+        lightbox.setAttribute("role", "dialog");
+
+        banner.setAttribute("aria-hidden","false");
+        photographerHeader.setAttribute("aria-hidden","false");
+        globalCounter.setAttribute("aria-hidden","false");
+        menuMedias.setAttribute("aria-hidden","false");        
+        medias.setAttribute("aria-hidden","false");
+        }
+      })    
+};
+
+
+// ------------------------------------------  Le menu de tri des medias ------------------------------------------
+
 async function toggleDropDownListItem() {
     
-    const dropDownMenu = document.getElementById("dropdown-menu");    
+    const dropDownMenu = document.getElementById("dropdown-menu");
+    const buttonElement = document.getElementById("buttonDropDown");    
 
-    if(dropDownMenu.style.display="none") {
-        dropDownMenu.style.display="block"        
-    } 
-    else 
-    {
-        dropDownMenu.style.display="none"
+    if(dropDownMenu.style.display == "none") {        
+        dropDownMenu.style.display="block";
+        buttonElement.setAttribute("aria-expanded","true");             
+    } else {        
+        dropDownMenu.style.display = "none";
+        buttonElement.setAttribute("aria-expanded","false");  
     }
-
 };
 
 async function mediaFilter() {
@@ -454,62 +634,40 @@ async function mediaFilter() {
 
     mediaModels.forEach((media) => {
         const medias = document.getElementById("media" + media.order)      
-
+        
         medias.addEventListener('click', function(){
             updateLightbox(media.order)
-        })
-    })
+        });
+        medias.addEventListener('keypress', function(e) {
+            if(e.key==='Enter'){
+                updateLightbox(media.order)
+            }
+        });
+    }) 
+
+    // mediaModels.forEach((media) => {
+    //     const medias = document.getElementById("media" + media.order)      
+
+    //     medias.addEventListener('click', function(){
+    //         updateLightbox(media.order)
+    //     })
+               
+        
+    // })
 };
 
-// async function mediaFilter() {
-//     const selectFilter = document.getElementById('media-filter');       
-//     const mediasSection = document.querySelector(".media");
 
-//     mediasSection.innerHTML='';
-//     let mediaToDisplay=[];
-
-//     if (selectFilter.value == 'Date'){
-//         mediaToDisplay = mediaDate;
-       
-//     } else if (selectFilter.value == 'Popularite'){
-//         mediaToDisplay = mediaPopularity;
-       
-//     } else if (selectFilter.value == 'Titre'){
-//         mediaToDisplay = mediaTitle;
-        
-//     }
-
-//     mediaModels = [];
-//     let order= 0;
-
-//     mediaToDisplay.forEach((media) => {
-        
-//         const mediasModel = mediaFactory(media,photographerModel.name,order);        
-//         const userMediaDOM = mediasModel.getUserMediaDOM();
-//         mediasSection.appendChild(userMediaDOM);
-//         mediaModels.push(mediasModel);
-//         order++;
-
-//     });
-
-//     mediaModels.forEach((media) => {
-//         const medias = document.getElementById("media" + media.order)      
-
-//         medias.addEventListener('click', function(){
-//             updateLightbox(media.order)
-//         })
-//     })
-
-   
-
-// };
-
+// ------------------------------------------ La fonction parent init ------------------------------------------
 async function init() {
     
     const url = new URL(document.location.href);
     const idPhotographer = url.searchParams.get('q');
     const {photographer, media} = await getPhotographer(idPhotographer);
     displayData(photographer, media);
+    escapeContactform();
+    escapeLightbox();
+   
+    
         
     // console.log(photographer);
     // console.log(media);

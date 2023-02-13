@@ -50,17 +50,18 @@ function photographerFactory(data,page) {
             card.innerHTML =`
             <a class="card__photograph-profile" title="Visiter le profil de ${name}" href="${href}" target="_blank" role="link">
                 <h2 class="card__name">
-                    <img class="card__image" src="${picture}" alt="Photo de profil de : ${name}">
+                    <img class="card__image" src="${picture}" alt="">
                     ${name}
                 </h2>
             </a>
-            <div class="card__text-container">
+            <div class="card__text-container" tabindex="0">
                 <h3 class="city">${city}</h3>
                 <h4 class="tagline">${tagline}</h4>
                 <h5 class="price">${price}€/jour</h5>
             </div>`;            
             card.className ="card";
             card.setAttribute("role", "region");
+            card.setAttribute("aria-label", "Vignette de presentation du photographe "+name)
            
             
             return card;
@@ -78,9 +79,9 @@ function photographerFactory(data,page) {
             
 
             const headerPhotographer = document.createElement( 'div' );
-            const profil = document.createElement( 'div' );
-            const contact = document.createElement( 'div' )
-            const img = document.createElement( 'img' )
+            const profil = document.createElement('div');            
+            const button = document.createElement('button');
+            const img = document.createElement('img');
             
             
             headerPhotographer.className = "header";            
@@ -88,18 +89,26 @@ function photographerFactory(data,page) {
             
             profil.innerHTML = `
             
-            <h2 class="name">${name}</h2>
-            <p class="city">${city}, ${country}</p>
-            <p class="tagline">${tagline}</p>         
+            <h1 tabindex="0" class="name">${name}</h1>
+            <div tabindex="0"> 
+                <p class="city">${city}, ${country}</p>
+                <p class="tagline">${tagline}</p>
+            </div>
+                     
             
             `;
 
-            contact.innerHTML = `<button class="contact_button">Contactez-moi</button>`;
+            button.className="contact_button";
+            button.textContent="Contactez-moi";
+            button.setAttribute("aria-label", "Contact Me")
+            
             img.className = "img";
             img.setAttribute("src", picture);
+            img.setAttribute("alt", name)
+            img.setAttribute("tabindex","0")
 
             headerPhotographer.appendChild(profil);
-            headerPhotographer.appendChild(contact);
+            headerPhotographer.appendChild(button);            
             headerPhotographer.appendChild(img);
 
             return headerPhotographer

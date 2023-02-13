@@ -29,14 +29,18 @@ function mediaFactory(data,photographerName,order) {
         imgModel.setAttribute("src", `${mediaDirectory}${image}`);
         imgModel.className = "box-img";
         imgModel.setAttribute("id",`media${order}`)
+        imgModel.setAttribute("tabindex","0")
 
         imgModel.style.cursor="pointer";
         legende.className = "legend";
         
         titre.className="text";
         titre.textContent= `${title}`;
+        titre.setAttribute("tabindex","0")
         nbLikes.className="likes";
         nbLikes.textContent=`${likes}`;
+        nbLikes.setAttribute("tabindex","0")
+        nbLikes.setAttribute("aria-label","likes")
         heart.className="heart fa-solid fa-heart";
 
         heart.addEventListener('click', function(){
@@ -72,13 +76,17 @@ function mediaFactory(data,photographerName,order) {
         videoModel.setAttribute("src", `${mediaDirectory}${video}`);
         videoModel.className = "box-video";
         videoModel.setAttribute("id",`media${order}`)
+        videoModel.setAttribute("tabindex","0")
         videoModel.style.cursor="pointer";
         legende.className = "legend";
        
         titre.className="text";
         titre.textContent= `${title}`;
+        titre.setAttribute("tabindex","0")
         nbLikes.className="likes";
         nbLikes.textContent=`${likes}`;
+        nbLikes.setAttribute("tabindex","0");
+        nbLikes.setAttribute("aria-label","likes");
         heart.className="heart fa-solid fa-heart";
 
         heart.addEventListener('click', function(){ 
