@@ -21,7 +21,7 @@
  */
 
 
-function photographerFactory(data,page) {
+export function photographerFactory(data) {
    
   const { city,country, id, name, price, tagline, portrait,likes } = data;
     
@@ -31,95 +31,81 @@ function photographerFactory(data,page) {
   url.searchParams.set('q', data.id);
   const href = url.href; // contient l'url complete avec l'id photographer
     
+
+  function getUserCardDOMIndex() {
+          
+    // Declarer les elements du DOM
+    const card = document.createElement( 'section' );
+          
+          
+    // Modifier les elements du DOM
+    card.innerHTML =`
+          <a class="card__photograph-profile" title="Visiter le profil de ${name}" href="${href}" target="_blank" role="link">
+              <h2 class="card__name">
+                  <img class="card__image" src="${picture}" alt="">
+                  ${name}
+              </h2>
+          </a>
+          <div class="card__text-container" tabindex="0">
+              <h3 class="city">${city}</h3>
+              <h4 class="tagline">${tagline}</h4>
+              <h5 class="price">${price}€/jour</h5>
+          </div>`;            
+    card.className ="card";
+    card.setAttribute("role", "region");
+    card.setAttribute("aria-label", "Vignette de presentation du photographe "+name)
+          
+          
+    return card;
+            
+
+  
+  }
+
+  function getUserCardDOMPhotographer() {
+          
+
+    const headerPhotographer = document.createElement( 'div' );
+    const profil = document.createElement('div');            
+    const button = document.createElement('button');
+    const img = document.createElement('img');
+          
+          
+    headerPhotographer.className = "header";            
+    profil.className = "profil";
+          
+    profil.innerHTML = `
+          
+          <h1 tabindex="0" class="name">${name}</h1>
+          <div tabindex="0"> 
+              <p class="city">${city}, ${country}</p>
+              <p class="tagline">${tagline}</p>
+          </div>
+                    
+          
+          `;
+
+    button.className="contact_button";
+    button.textContent="Contactez-moi";
+    button.setAttribute("aria-label", "Contact Me")
+          
+    img.className = "img";
+    img.setAttribute("src", picture);
+    img.setAttribute("alt", name)
+    img.setAttribute("tabindex","0")
+
+    headerPhotographer.appendChild(profil);
+    headerPhotographer.appendChild(button);            
+    headerPhotographer.appendChild(img);
+
+    return headerPhotographer
+  }       
+ 
     
-    
-  if(page === "index") {   
-
-    /**
-         * Retourne une balise section contenant les elements HTML a afficher sur la page accueil
-         * @return { card }
-         */
-
-    function getUserCardDOM() {
-            
-      // Declarer les elements du DOM
-      const card = document.createElement( 'section' );
-            
-            
-      // Modifier les elements du DOM
-      card.innerHTML =`
-            <a class="card__photograph-profile" title="Visiter le profil de ${name}" href="${href}" target="_blank" role="link">
-                <h2 class="card__name">
-                    <img class="card__image" src="${picture}" alt="">
-                    ${name}
-                </h2>
-            </a>
-            <div class="card__text-container" tabindex="0">
-                <h3 class="city">${city}</h3>
-                <h4 class="tagline">${tagline}</h4>
-                <h5 class="price">${price}€/jour</h5>
-            </div>`;            
-      card.className ="card";
-      card.setAttribute("role", "region");
-      card.setAttribute("aria-label", "Vignette de presentation du photographe "+name)
-           
-            
-      return card;
-             
-
-    }
-  } else if(page === "photographer") {
-
-    /**
-         * Retourne une balise div contenant les elements HTML a afficher sur la page photographe
-         * @return { headerPhotographer }
-         */
-
-    function getUserCardDOM() {
-            
-
-      const headerPhotographer = document.createElement( 'div' );
-      const profil = document.createElement('div');            
-      const button = document.createElement('button');
-      const img = document.createElement('img');
-            
-            
-      headerPhotographer.className = "header";            
-      profil.className = "profil";
-            
-      profil.innerHTML = `
-            
-            <h1 tabindex="0" class="name">${name}</h1>
-            <div tabindex="0"> 
-                <p class="city">${city}, ${country}</p>
-                <p class="tagline">${tagline}</p>
-            </div>
-                     
-            
-            `;
-
-      button.className="contact_button";
-      button.textContent="Contactez-moi";
-      button.setAttribute("aria-label", "Contact Me")
-            
-      img.className = "img";
-      img.setAttribute("src", picture);
-      img.setAttribute("alt", name)
-      img.setAttribute("tabindex","0")
-
-      headerPhotographer.appendChild(profil);
-      headerPhotographer.appendChild(button);            
-      headerPhotographer.appendChild(img);
-
-      return headerPhotographer
-    }       
-
-       
-  }   
 
        
   return { city,country,id, name, picture, price, tagline,likes,
-    getUserCardDOM} 
+    getUserCardDOMIndex,getUserCardDOMPhotographer} 
 }
 
 

@@ -1,6 +1,9 @@
 // Variables de portees global utilisees pour la fonction displayData et mediaFilter
 // Declarer au chargement de la page via displayData 
 // Utiliser lors de l'utilisation du filtre des medias via mediaFilter
+import { photographerFactory } from "../factories/photographer.js";
+import { mediaFactory } from "../factories/media.js";
+
 
 let mediaPopularity =[];
 let mediaDate =[];
@@ -25,7 +28,8 @@ async function getPhotographer(id) {
     const photographers = data.photographers;
        
     const medias = data.media;
-        
+    // console.log(photographers)
+    // console.log(medias)    
 
 
     let user;
@@ -33,20 +37,23 @@ async function getPhotographer(id) {
 
     photographers.forEach((photographer) => {
             
-      if(id === photographer.id) {                
-        user = photographer;    
+      if(id == photographer.id) {                
+        user = photographer; 
+        console.log(typeof id) 
       }
+      
     })
 
     medias.forEach((media) => {
-      if(id === media.photographerId) {
+      if(id == media.photographerId) {
         userMedia.push(media);
+        
       }
     })
 
     return {
       photographer: user,
-      media : userMedia
+      media : userMedia      
     }
   }
 }
@@ -57,8 +64,8 @@ async function displayData(photographer,medias) {
 
   // Partie Header
   const photographersSection = document.querySelector(".photograph-header");
-  photographerModel = photographerFactory(photographer,"photographer");    
-  const userCardDOM = photographerModel.getUserCardDOM();   
+  photographerModel = photographerFactory(photographer);    
+  const userCardDOM = photographerModel.getUserCardDOMPhotographer();   
   photographersSection.appendChild(userCardDOM);   
     
 
@@ -663,7 +670,9 @@ async function init() {
   const url = new URL(document.location.href);
   const idPhotographer = url.searchParams.get('q');
   const {photographer, media} = await getPhotographer(idPhotographer);
-  displayData(photographer, media);
+  console.log(photographer)
+  console.log(media)
+  displayData(photographer, media);  
   escapeContactform();
   escapeLightbox();
    

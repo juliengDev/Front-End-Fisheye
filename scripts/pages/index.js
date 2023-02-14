@@ -1,3 +1,6 @@
+import { photographerFactory } from "../factories/photographer.js";
+
+
 /**
  * Permet de recuperer les donnees JSON en utilisant l'Api fetch.
  * @return { Promise } Promise.resolve
@@ -57,8 +60,8 @@ async function displayData(photographers) {
 
   // Appel pour chaque photographe une factory qui genere l'affichage des donnees du photographe sur la page Accueil
   photographers.forEach((photographer) => {
-    const photographerModel = photographerFactory(photographer,"index");
-    const userCardDOM = photographerModel.getUserCardDOM();
+    const photographerModel = photographerFactory(photographer);
+    const userCardDOM = photographerModel.getUserCardDOMIndex();
     photographersSection.appendChild(userCardDOM); 
   });
 }

@@ -1,4 +1,4 @@
-function mediaFactory(data,photographerName,order) {
+export function mediaFactory(data,photographerName,order) {
     
   let {date,id,image,likes,photographerId,price,title,video} = data;
     
