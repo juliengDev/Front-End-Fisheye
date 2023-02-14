@@ -28,8 +28,7 @@ async function getPhotographer(id) {
     const photographers = data.photographers;
        
     const medias = data.media;
-    // console.log(photographers)
-    // console.log(medias)    
+       
 
 
     let user;
@@ -39,7 +38,7 @@ async function getPhotographer(id) {
             
       if(id == photographer.id) {                
         user = photographer; 
-        console.log(typeof id) 
+        
       }
       
     })
@@ -82,21 +81,21 @@ async function displayData(photographer,medias) {
   buttonElement.addEventListener("click",toggleDropDownListItem);
 
   popularity.addEventListener("click",function() {
-    // console.log("Popularité")
+   
     buttonElement.textContent="Popularité"
     dropDownMenu.style.display="none";
     buttonElement.setAttribute("aria-expanded","false");
     mediaFilter()
   })
   date.addEventListener("click",function() {
-    // console.log("Date")
+   
     buttonElement.textContent="Date"
     dropDownMenu.style.display="none";
     buttonElement.setAttribute("aria-expanded","false");
     mediaFilter()
   })
   title.addEventListener("click",function() {
-    // console.log("Titre")
+  
     buttonElement.textContent="Titre"
     dropDownMenu.style.display="none";
     buttonElement.setAttribute("aria-expanded","false");
@@ -610,7 +609,7 @@ async function mediaFilter() {
   const mediasSection = document.querySelector(".media");
   const selectFilter = document.getElementById('buttonDropDown');
 
-  console.log(selectFilter.textContent)
+  
 
   mediasSection.innerHTML='';
   let mediaToDisplay=[];
@@ -670,16 +669,14 @@ async function init() {
   const url = new URL(document.location.href);
   const idPhotographer = url.searchParams.get('q');
   const {photographer, media} = await getPhotographer(idPhotographer);
-  console.log(photographer)
-  console.log(media)
+  
   displayData(photographer, media);  
   escapeContactform();
   escapeLightbox();
    
     
         
-  // console.log(photographer);
-  // console.log(media);
+
     
 }
 
