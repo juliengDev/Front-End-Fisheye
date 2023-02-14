@@ -23,28 +23,28 @@
 async function getPhotographers() {
 
     
-    const url = './data/photographers.json';
-    const requete = await fetch(url, {
-        method: 'GET'
-    });
+  const url = './data/photographers.json';
+  const requete = await fetch(url, {
+    method: 'GET'
+  });
 
-    if (!requete.ok){
-        alert('Un probleme est survenu. Veuillez recharger la page ulterieurement')
-    }else{
-        let data = await requete.json();
-        const photographers = data.photographers;
+  if (!requete.ok){
+    alert('Un probleme est survenu. Veuillez recharger la page ulterieurement')
+  }else{
+    let data = await requete.json();
+    const photographers = data.photographers;
         
-        const medias = data.media;
+    const medias = data.media;
         
         
     
     
     return {
-        photographers: [...photographers],
-        medias: [...medias]
-        }
+      photographers: [...photographers],
+      medias: [...medias]
     }
-};   
+  }
+}   
  
 /**
  *  Affiche les donnees des photographers sur la page d'accueil.
@@ -53,15 +53,15 @@ async function getPhotographers() {
  */
 
 async function displayData(photographers) {
-    const photographersSection = document.querySelector(".photographer_section");
+  const photographersSection = document.querySelector(".photographer_section");
 
-    // Appel pour chaque photographe une factory qui genere l'affichage des donnees du photographe sur la page Accueil
-    photographers.forEach((photographer) => {
-        const photographerModel = photographerFactory(photographer,"index");
-        const userCardDOM = photographerModel.getUserCardDOM();
-        photographersSection.appendChild(userCardDOM); 
-    });
-};
+  // Appel pour chaque photographe une factory qui genere l'affichage des donnees du photographe sur la page Accueil
+  photographers.forEach((photographer) => {
+    const photographerModel = photographerFactory(photographer,"index");
+    const userCardDOM = photographerModel.getUserCardDOM();
+    photographersSection.appendChild(userCardDOM); 
+  });
+}
 
 
 
@@ -71,11 +71,11 @@ async function displayData(photographers) {
  * Appel la fonction DisplayData en passant la variable en parametre
  */
 async function init() {
-    // Récupère les datas des photographes
-    const { photographers } = await getPhotographers();
-    displayData(photographers);   
+  // Récupère les datas des photographes
+  const { photographers } = await getPhotographers();
+  displayData(photographers);   
     
-};
+}
 
 init();
 
