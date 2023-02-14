@@ -145,9 +145,9 @@ async function displayData(photographer,medias) {
         
   let sum = 0;
   let order = 0;
-  let totalLikes = document.getElementById('totalLikes');
+  // let totalLikes = document.getElementById('totalLikes');
   let number = document.getElementById('number');
-  let heart = document.getElementById('heart');
+  // let heart = document.getElementById('heart');
   let price = document.getElementById('price');
 
     
