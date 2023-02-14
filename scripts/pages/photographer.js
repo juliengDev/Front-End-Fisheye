@@ -344,8 +344,8 @@ async function validate(event) {
 
     
   const name_regex = /^[A-zÀ-ú]+$/;    
-  const mail_regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
-  // /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  const mail_regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  // /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
     
   const errors = document.querySelectorAll(".error");
   
@@ -500,14 +500,14 @@ async function updateLightbox(order) {
       }
     });
 
-    leftArrow.onclick =function(event) {     
+    leftArrow.onclick =function() {     
             
       updateLightbox(order-1)
 
 
     };
 
-    rightArrow.onclick = function(event) {
+    rightArrow.onclick = function() {
 
       updateLightbox(order+1)
             
