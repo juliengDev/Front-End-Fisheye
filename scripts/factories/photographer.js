@@ -29,7 +29,7 @@ export function photographerFactory(data) {
     
   const url = new URL('http://127.0.0.1:5501/photographer.html');
   url.searchParams.set('q', data.id);
-  const href = "../photographer.html?q="+data.id
+  const href = "./photographer.html?q="+data.id
   // url.href; // contient l'url complete avec l'id photographer
     
 
