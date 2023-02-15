@@ -78,8 +78,8 @@ export function photographerFactory(data) {
           
           <h1 tabindex="0" class="name">${name}</h1>
           <div tabindex="0"> 
-              <p class="city">${city}, ${country}</p>
-              <p class="tagline">${tagline}</p>
+              <h2 class="city">${city}, ${country}</h2>
+              <h3 class="tagline">${tagline}</h3>
           </div>
                     
           

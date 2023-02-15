@@ -197,9 +197,9 @@ async function createContactForm(name) {
   modal.innerHTML=`
     <header>
         <h2>Contactez-moi</h2>                    
-        <img tabindex="0" id="idCloseContact" src="assets/icons/close.svg" />
+        <img tabindex="0" id="idCloseContact" src="assets/icons/close.svg" alt="Bouton de fermeture"/>
     </header>
-    <p class="name">${name}</p>
+    <h2 class="name">${name}</h2>
     <form
     id="reserve"
     name="reserve"
@@ -207,24 +207,24 @@ async function createContactForm(name) {
     method="get"
     >
         <div>
-            <label id="first "for="first">Prénom</label>
+            <label id="firstname" for="first">Prénom</label>
             <input                        
             class="text-control"
             type="text"
             id="first"
             name="first"
             maxlength="60"
-            aria-labellebdy="first"         
+            aria-labellebdy="firstname"         
             aria-required=true
             
             />
         </div>
         <div>
-            <label id="last" for="last">Nom</label>
+            <label id="lastname" for="last">Nom</label>
             <input
             required
             aria-required=true
-            aria-labellebdy="last"  
+            aria-labellebdy="lastname"  
             class="text-control"
             type="text"
             id="last"
@@ -233,11 +233,11 @@ async function createContactForm(name) {
             />
         </div>
         <div>
-            <label id="email" for="email">Email</label>
+            <label id="emailadress" for="email">Email</label>
             <input
             required
             aria-required=true
-            aria-labellebdy="email" 
+            aria-labellebdy="emailadress" 
             class="text-control"
             type="email"
             id="email"
@@ -245,10 +245,11 @@ async function createContactForm(name) {
             />
         </div>
         <div>
-            <label for"message">Votre message</label>            
+            <label id="votremessage" for="message">Votre message</label>            
             <textarea 
             required
             aria-required=true
+            aria-labellebdy="votremessage"
             name="message" 
             id="message" 
             class="text-control" 
@@ -256,8 +257,7 @@ async function createContactForm(name) {
             wrap="hard"
             spellcheck="false"
             aria-label="Saisissez votre message">            
-            </textarea>
-            
+            </textarea>            
         </div>
         <button class="send_button" type="submit">Envoyer</button>
     </form>

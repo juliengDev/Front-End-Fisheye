@@ -20,7 +20,7 @@ export function mediaFactory(data,photographerName,order) {
 
       let imgModel = document.createElement( 'img' );
       let legende = document.createElement( 'div' );
-      let titre = document.createElement('p');
+      let titre = document.createElement('h3');
       let nbLikes = document.createElement('div')
       let heart = document.createElement('i');
         
@@ -28,8 +28,9 @@ export function mediaFactory(data,photographerName,order) {
       // Modifier les elements du DOM
       imgModel.setAttribute("src", `${mediaDirectory}${image}`);
       imgModel.className = "box-img";
-      imgModel.setAttribute("id",`media${order}`)
-      imgModel.setAttribute("tabindex","0")
+      imgModel.setAttribute("id",`media${order}`);
+      imgModel.setAttribute("tabindex","0");
+      imgModel.setAttribute("alt",`${title}, closeup view`)
 
       imgModel.style.cursor="pointer";
       legende.className = "legend";
@@ -68,7 +69,7 @@ export function mediaFactory(data,photographerName,order) {
 
       let videoModel = document.createElement( 'video' );
       let legende = document.createElement( 'div' );
-      let titre = document.createElement('p');
+      let titre = document.createElement('h3');
       let nbLikes = document.createElement('div');
       let heart = document.createElement('i');
 
@@ -76,7 +77,8 @@ export function mediaFactory(data,photographerName,order) {
       videoModel.setAttribute("src", `${mediaDirectory}${video}`);
       videoModel.className = "box-video";
       videoModel.setAttribute("id",`media${order}`)
-      videoModel.setAttribute("tabindex","0")
+      videoModel.setAttribute("tabindex","0");
+      videoModel.setAttribute("alt",`${title}, closeup view`)
       videoModel.style.cursor="pointer";
       legende.className = "legend";
        
