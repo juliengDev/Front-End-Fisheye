@@ -193,6 +193,10 @@ async function createContactForm(name) {
 
   let modal = document.querySelector('.modal');
   let contactButton = document.querySelector('.contact_button');
+  let firstname = document.getElementById('first');
+  let lastname = document.getElementById('last');
+  let email = document.getElementById('email');
+  let message = document.getElementById('message');
     
   modal.innerHTML=`
     <header>
@@ -266,7 +270,7 @@ async function createContactForm(name) {
   let sendButton = document.querySelector('.send_button')
   let closeContactModal = document.getElementById('idCloseContact');
   contactButton.addEventListener('click', toggleContactForm);
-  closeContactModal.addEventListener('click',toggleContactForm);
+  closeContactModal.addEventListener('click',toggleContactForm); 
   sendButton.addEventListener('click',validate)
 }
 
@@ -339,6 +343,7 @@ async function validate(event) {
   const firstName = document.getElementById("first");
   const lastName = document.getElementById("last");
   const email = document.getElementById("email");
+  const message = document.getElementById('message')
   let contactModal = document.getElementById("contact_modal")
 
     
@@ -388,7 +393,10 @@ async function validate(event) {
 
     
   //* Si tout est OK */    
-  event.preventDefault();
+  event.preventDefault();  
+  console.log(`${firstName.value} \n ${lastName.value} \n ${email.value} \n ${message.value}`);
+  
+  
   // event.stopPropagation();
   contactModal.style.display="none";
     
