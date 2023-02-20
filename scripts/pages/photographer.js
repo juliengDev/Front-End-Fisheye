@@ -25,12 +25,8 @@ async function getPhotographer(id) {
   }else{
     let data = await requete.json();
         
-    const photographers = data.photographers;
-       
+    const photographers = data.photographers;    
     const medias = data.media;
-       
-
-
     let user;
     let userMedia = [];
 
@@ -193,10 +189,7 @@ async function createContactForm(name) {
 
   let modal = document.querySelector('.modal');
   let contactButton = document.querySelector('.contact_button');
-  let firstname = document.getElementById('first');
-  let lastname = document.getElementById('last');
-  let email = document.getElementById('email');
-  let message = document.getElementById('message');
+  
     
   modal.innerHTML=`
     <header>
@@ -595,7 +588,6 @@ async function escapeLightbox() {
   })    
 }
 
-
 // ------------------------------------------  Le menu de tri des medias ------------------------------------------
 
 async function toggleDropDownListItem() {
@@ -659,15 +651,7 @@ async function mediaFilter() {
     });
   }) 
 
-  // mediaModels.forEach((media) => {
-  //     const medias = document.getElementById("media" + media.order)      
 
-  //     medias.addEventListener('click', function(){
-  //         updateLightbox(media.order)
-  //     })
-               
-        
-  // })
 }
 
 
@@ -680,12 +664,7 @@ async function init() {
   
   displayData(photographer, media);  
   escapeContactform();
-  escapeLightbox();
-   
-    
-        
-
-    
+  escapeLightbox();    
 }
 
 init();

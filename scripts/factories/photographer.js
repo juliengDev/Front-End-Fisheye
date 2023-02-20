@@ -87,7 +87,8 @@ export function photographerFactory(data) {
 
     button.className="contact_button";
     button.textContent="Contactez-moi";
-    button.setAttribute("aria-label", "Contact Me")
+    button.setAttribute("aria-label", "Contact Me");
+    button.setAttribute("lang", "en");
           
     img.className = "img";
     img.setAttribute("src", picture);
